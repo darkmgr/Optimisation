@@ -1,0 +1,30 @@
+package object;
+
+import java.util.Vector;
+
+public class Poule {
+
+	private static int max_size;
+	private Vector<Equipe> mesEquipes;
+	
+	
+	public Poule() {
+		
+	}
+
+
+	/**
+	 * @return the mesEquipes
+	 */
+	public Vector<Equipe> getMesEquipes() {
+		return mesEquipes;
+	}
+
+
+	/**
+	 * @param mesEquipes the mesEquipes to set
+	 */
+	public void setMesEquipes(Vector<Equipe> mesEquipes) {
+		this.mesEquipes = mesEquipes;
+	}
+}

@@ -1,0 +1,35 @@
+package object;
+
+public class Individu {
+	private Poule poule1;
+	private Poule poule2;
+	
+	public Individu() {
+		
+	}
+	
+	/**
+	 * @return the poule1
+	 */
+	public Poule getPoule1() {
+		return poule1;
+	}
+	/**
+	 * @param poule1 the poule1 to set
+	 */
+	public void setPoule1(Poule poule1) {
+		this.poule1 = poule1;
+	}
+	/**
+	 * @return the poule2
+	 */
+	public Poule getPoule2() {
+		return poule2;
+	}
+	/**
+	 * @param poule2 the poule2 to set
+	 */
+	public void setPoule2(Poule poule2) {
+		this.poule2 = poule2;
+	}
+}

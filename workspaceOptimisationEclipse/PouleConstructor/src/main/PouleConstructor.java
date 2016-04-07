@@ -3,7 +3,10 @@ package main;
 import java.util.Vector;
 
 import managers.ObjectManager;
+import managers.PopulationConstructor;
 import object.Equipe;
+import object.Individu;
+import object.Poule;
 import tools.ExcelReader;
 
 public class PouleConstructor {
@@ -21,6 +24,9 @@ public class PouleConstructor {
 	private static void init() {
 		new ExcelReader();
 		new ObjectManager();
+		new PopulationConstructor();
+		//On indique la taille maximale du nombre d'équipe par Poule
+		Poule.setMax_size(9);
 		
 		Vector<String> filesPath = new Vector<String>();
 		
@@ -31,6 +37,23 @@ public class PouleConstructor {
 		ExcelReader.getEquipeFromExcelFile();
 		
 		System.out.println("Fin de l'initialisation des Equipes");
+		for(Equipe e : ObjectManager.getMesEquipes()) {
+			System.out.println(e.toString());
+		}
+		
+		System.out.println("-------------");
+		System.out.println("-------------");
+		
+		//Génération d'un individu aléatoire
+		PopulationConstructor.GenererIndividuAleatoire();
+		System.out.println("Fin de la génération aléatoire d'un individu");
+		for(Individu i : ObjectManager.getMesIndividus()) {
+			System.out.println(i.toString());
+		}
+		
+		System.out.println("-------------");
+		System.out.println("-------------");
+		System.out.println("Test equipe ObjectManager");
 		for(Equipe e : ObjectManager.getMesEquipes()) {
 			System.out.println(e.toString());
 		}

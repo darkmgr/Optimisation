@@ -1,4 +1,4 @@
-# Optimisation
+﻿# Optimisation
 Projet d'optimisation stochastique
 
 Utilisation d'algorithme génétique pour faire une selection d'équipes en poules dans un tournoi.
@@ -15,8 +15,12 @@ Fonctionnement du programme :
 
 Configuration :
 
+- Path de la Matrice de distance
+- Path de la Matrice de temps
+- Path du fichier texte de l'ordre de niveau des équipes
+
 -Nombre d'individus dans la population  (int)
--COmbien d'individus vont évoluer ? (1 à N) (int)
+-Combien d'individus vont évoluer ? (1 à N) (int)
 -Croisement ou mutation (string)
 -Nombre de générations (max 500) (int)
 

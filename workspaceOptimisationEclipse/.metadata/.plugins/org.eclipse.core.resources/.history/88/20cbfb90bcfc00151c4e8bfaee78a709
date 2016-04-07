@@ -1,0 +1,8 @@
+package object;
+
+public class Poule {
+
+	private static int max_size;
+	
+	
+}

@@ -1,0 +1,49 @@
+package object;
+
+import java.util.Vector;
+
+public class Poule {
+
+	private static int max_size;
+	private Vector<Equipe> mesEquipes;
+	
+	
+	public Poule() {
+		this.setMesEquipes(new Vector<Equipe>());
+	}
+
+
+	/**
+	 * @return the mesEquipes
+	 */
+	public Vector<Equipe> getMesEquipes() {
+		return mesEquipes;
+	}	
+
+	/**
+	 * @param mesEquipes the mesEquipes to set
+	 */
+	public void setMesEquipes(Vector<Equipe> mesEquipes) {
+		if(mesEquipes.size() <= max_size) {
+			this.mesEquipes = mesEquipes;
+		} else {
+			System.out.println("Impossible d'ajouter plus d'équipe que la taille maximum autorisé");
+		}
+	}
+
+
+	/**
+	 * @return the max_size
+	 */
+	public static int getMax_size() {
+		return max_size;
+	}
+
+
+	/**
+	 * @param max_size the max_size to set
+	 */
+	public static void setMax_size(int max_size) {
+		Poule.max_size = max_size;
+	}
+}

@@ -1,0 +1,7 @@
+#Fichier de configuration du logiciel
+
+#Path des fichiers de données
+#Cle = valeur
+pathMatriceDistance = ./Matrice distance
+pathMatriceTemps = ./Matrice temps
+pathNiveau = ./Niveau

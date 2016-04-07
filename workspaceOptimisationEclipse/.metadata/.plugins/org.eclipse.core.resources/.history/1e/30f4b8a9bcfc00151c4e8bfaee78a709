@@ -1,0 +1,14 @@
+package object;
+
+import java.util.Vector;
+
+public class Poule {
+
+	private static int max_size;
+	private Vector<Equipe> mesEquipes;
+	
+	
+	public Poule() {
+		
+	}
+}

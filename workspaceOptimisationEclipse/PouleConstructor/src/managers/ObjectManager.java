@@ -3,16 +3,16 @@ package managers;
 import java.util.Vector;
 
 import object.Equipe;
-import object.Poule;
+import object.Individu;
 
 public class ObjectManager {
 
 	private static Vector<Equipe> mesEquipes;
-	private static Vector<Poule> mesPoules;
+	private static Vector<Individu> mesIndividus;
 	
 	public ObjectManager() {
 		ObjectManager.setMesEquipes(new Vector<Equipe>());
-		ObjectManager.setMesPoules(new Vector<Poule>());
+		ObjectManager.setMesIndividus(new Vector<Individu>());
 	}
 	
 	public static void addEquipe(Equipe eTemp) {
@@ -51,25 +51,12 @@ public class ObjectManager {
 		return res;
 	}
 	
-	public static void addPoule(Poule pTemp) {
-		if(pTemp != null) {
-			ObjectManager.getMesPoules().add(pTemp);
-			System.out.println("Ajout de la poule au Manager");
-		} else {
-			System.out.println("Impossible d'ajouter une poule null");
-		}
-	}
-	
-	public static void deletePoule(Poule pTemp) {
-		if(pTemp != null) {
-			for(Poule p : ObjectManager.getMesPoules()) {
-				if(p.equals(pTemp)) {
-					ObjectManager.getMesEquipes().remove(p);
-					System.out.println("Poule correctement supprimée");
-				}
-			}
-		} else {
-			System.out.println("Impossible de supprimer une poule null");
+	/**
+	 * Reset du boolean d'utilisation de l'équipe dans une poule pour chaque équipe de l'ObjectManager
+	 */
+	public static void resetBooleanUsedPoule() {
+		for(Equipe e : ObjectManager.getMesEquipes()) {
+			e.setUsedPoule(false);
 		}
 	}
 
@@ -87,17 +74,25 @@ public class ObjectManager {
 		ObjectManager.mesEquipes = mesEquipes;
 	}
 
+	public static void addIndividu(Individu iTemp) {
+		if(iTemp != null) {
+			ObjectManager.getMesIndividus().add(iTemp);
+		} else {
+			System.out.println("Impossible d'ajouter un individu null");
+		}
+	}
+	
 	/**
-	 * @return the mesPoules
+	 * @return the mesIndividus
 	 */
-	public static Vector<Poule> getMesPoules() {
-		return mesPoules;
+	public static Vector<Individu> getMesIndividus() {
+		return mesIndividus;
 	}
 
 	/**
-	 * @param mesPoules the mesPoules to set
+	 * @param mesIndividus the mesIndividus to set
 	 */
-	public static void setMesPoules(Vector<Poule> mesPoules) {
-		ObjectManager.mesPoules = mesPoules;
+	public static void setMesIndividus(Vector<Individu> mesIndividus) {
+		ObjectManager.mesIndividus = mesIndividus;
 	}
 }

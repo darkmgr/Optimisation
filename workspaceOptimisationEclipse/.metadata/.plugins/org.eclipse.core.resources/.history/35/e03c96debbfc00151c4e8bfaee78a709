@@ -1,0 +1,7 @@
+#Fichier de configuration du logiciel
+#Cle = valeur
+
+#Path des fichiers de données
+pathMatriceDistance = ./Matrice distance.xlsx
+pathMatriceTemps = ./Matrice temps
+pathNiveau = ./Niveau

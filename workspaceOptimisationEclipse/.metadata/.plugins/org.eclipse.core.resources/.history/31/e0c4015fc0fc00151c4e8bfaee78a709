@@ -1,0 +1,6 @@
+package object;
+
+public class Individu {
+	private Poule poule1;
+	private Poule poule2;
+}
