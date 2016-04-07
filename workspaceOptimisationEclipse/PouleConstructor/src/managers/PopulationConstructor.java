@@ -13,7 +13,7 @@ public class PopulationConstructor {
 	}
 	
 	public static void GenererIndividuAleatoire() {
-		//Création des deux poules de l'individu
+		//Crï¿½ation des deux poules de l'individu
 		Poule p1 = new Poule();
 		Poule p2 = new Poule();
 		
@@ -35,6 +35,11 @@ public class PopulationConstructor {
 			}
 			i++;
 		}
+		
+		p1.calculNiveau();
+		p2.calculNiveau();
+		
+
 		
 		ObjectManager.addIndividu(new Individu(p1, p2));		
 	}

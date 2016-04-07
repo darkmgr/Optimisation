@@ -1,11 +1,14 @@
 package object;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 public class Poule {
 
 	private static int max_size;
 	private Vector<Equipe> mesEquipes;
+	private static float distanceTotale;
+	private static int niveau;
 	
 	public Poule() {
 		this.setMesEquipes(new Vector<Equipe>());
@@ -18,6 +21,35 @@ public class Poule {
 		return mesEquipes;
 	}	
 
+		public void setDistanceTotale(float distance)
+		{
+			this.distanceTotale = distance;
+		}
+		public void setNiveau(int niveau)
+		{
+			this.niveau = niveau;
+		}		
+		public float getDistanceTotale()
+		{
+			return this.distanceTotale;
+		}
+		public int getNiveau()
+		{
+			return this.niveau;
+		}	
+		/**
+		 * * Calcul du niveau de la poule (Somme des niveaux des Ã©quipes)
+		 * 
+		 */
+		public void calculNiveau()
+		{
+			Iterator i = mesEquipes.iterator();
+			while (i.hasNext())
+			{
+				Object temp = i.next();
+				this.niveau += ((Equipe) temp).getNiveau();
+			}
+		}
 	/**
 	 * @param mesEquipes the mesEquipes to set
 	 */
@@ -25,7 +57,7 @@ public class Poule {
 		if(mesEquipes.size() <= max_size) {
 			this.mesEquipes = mesEquipes;
 		} else {
-			System.out.println("Impossible d'ajouter plus d'équipe que la taille maximum autorisé");
+			System.out.println("Impossible d'ajouter plus d'ï¿½quipe que la taille maximum autorisï¿½");
 		}
 	}
 	
@@ -33,7 +65,7 @@ public class Poule {
 		if(this.getMesEquipes().size() <= max_size) {
 			this.getMesEquipes().add(eTemp);
 		} else {
-			System.out.println("Impossible d'ajouter plus d'équipe que la taille maximum autorisé");
+			System.out.println("Impossible d'ajouter plus d'ï¿½quipe que la taille maximum autorisï¿½");
 		}
 	}
 
@@ -60,6 +92,8 @@ public class Poule {
 			res += e.toString() + "\n";
 		}
 		res += "]";
+		res += "\nNiveau de la poule : " + this.getNiveau();
+		res += "\n";
 		return res;
 	}
 }
