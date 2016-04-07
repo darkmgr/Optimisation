@@ -50,6 +50,31 @@ public class Poule {
 				this.niveau += ((Equipe) temp).getNiveau();
 			}
 		}
+		public void calculDistance()
+		{
+			Iterator i = mesEquipes.iterator();
+			while (i.hasNext())
+			{
+				Object temp = i.next();
+				
+				//TODO : IMPORTANT !
+				// Il faut recuperer la ligne correspondant dans la matrice
+				
+				
+				// Faire une nouvelle matrice avec uniquement les equipes qui sont dans la poule
+				
+				// valeurBasse = 1
+				// Pour i allant de 1 à n, 
+				//      Pour j allant de valeurBasse à n,
+				//           distancetotal += nouvelleMatrice[i][j]
+				//           valeurBasse++
+				
+				// ValeurBasse sert à calculer que la diagonale haute de la matrice (Sinon on calcule 2 fois
+				// Genre match A contre B et apres match B contre A
+				// A moins qu'on compte des matchs aller-retour dans ce cas faut mettre 1 à n A VOIR
+				
+			}
+		}		
 	/**
 	 * @param mesEquipes the mesEquipes to set
 	 */
@@ -93,6 +118,7 @@ public class Poule {
 		}
 		res += "]";
 		res += "\nNiveau de la poule : " + this.getNiveau();
+		res += "\nDistance total à parcourir : " + this.getDistanceTotale();
 		res += "\n";
 		return res;
 	}

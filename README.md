@@ -23,7 +23,7 @@ Configuration :
 -Combien d'individus vont évoluer ? (1 à N) (int)
 -Croisement ou mutation (string)
 -Nombre de générations (max 500) (int)
-
+-Critere de temps ou de kilometre ? (string)
 
 -> Population initiale :
     Choix aléatoire de différents individus
