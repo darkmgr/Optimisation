@@ -1,0 +1,41 @@
+package object;
+
+import java.util.Vector;
+
+public class Equipe {
+	private static String name;
+	private static Vector<Integer> matrice;
+	
+	public Equipe() {
+		this.setName("");
+		
+	}
+
+	/**
+	 * @return the name
+	 */
+	public static String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public static void setName(String name) {
+		Equipe.name = name;
+	}
+
+	/**
+	 * @return the matrice
+	 */
+	public static Vector<Integer> getMatrice() {
+		return matrice;
+	}
+
+	/**
+	 * @param matrice the matrice to set
+	 */
+	public static void setMatrice(Vector<Integer> matrice) {
+		Equipe.matrice = matrice;
+	}
+}

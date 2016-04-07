@@ -1,0 +1,10 @@
+package object;
+
+public class Equipe {
+	private static name;
+	
+	
+	public Equipe() {
+		
+	}
+}
