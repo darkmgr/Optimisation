@@ -1,0 +1,85 @@
+package object;
+
+import java.util.Vector;
+
+public class Equipe {
+	private String name;
+	private Float niveau;
+	private Vector<Integer> matriceDistance;
+	private Vector<Integer> matriceTemps;
+	
+	
+	public Equipe() {
+		this.setName("");
+		this.setMatriceDistance(new Vector<Integer>());
+		this.setMatriceTemps(new Vector<Integer>());
+	}
+	
+	public Equipe(String name, Vector<Integer> matriceTemps, Vector<Integer> matriceDistance) {
+		this.setName(name);
+		this.setMatriceDistance(matriceDistance);
+		this.setMatriceTemps(matriceTemps);
+	}
+	
+	public Equipe(String name) {
+		this.setName(name);
+		this.setMatriceDistance(new Vector<Integer>());
+		this.setMatriceTemps(new Vector<Integer>());
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * @return the niveau
+	 */
+	public Float getNiveau() {
+		return niveau;
+	}
+
+	/**
+	 * @param niveau the niveau to set
+	 */
+	public void setNiveau(Float niveau) {
+		this.niveau = niveau;
+	}
+
+	/**
+	 * @return the matriceDistance
+	 */
+	public Vector<Integer> getMatriceDistance() {
+		return matriceDistance;
+	}
+
+	/**
+	 * @param matriceDistance the matriceDistance to set
+	 */
+	public void setMatriceDistance(Vector<Integer> matriceDistance) {
+		this.matriceDistance = matriceDistance;
+	}
+
+	/**
+	 * @return the matriceTemps
+	 */
+	public Vector<Integer> getMatriceTemps() {
+		return matriceTemps;
+	}
+
+	/**
+	 * @param matriceTemps the matriceTemps to set
+	 */
+	public void setMatriceTemps(Vector<Integer> matriceTemps) {
+		this.matriceTemps = matriceTemps;
+	}	
+}

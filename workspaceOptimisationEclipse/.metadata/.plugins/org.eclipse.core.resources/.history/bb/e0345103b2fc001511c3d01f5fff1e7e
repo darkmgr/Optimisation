@@ -1,0 +1,63 @@
+package managers;
+
+import java.util.Vector;
+
+import object.Equipe;
+import object.Poule;
+
+public class ObjectManager {
+
+	private static Vector<Equipe> mesEquipes;
+	private static Vector<Poule> mesPoules;
+	
+	public ObjectManager() {
+		ObjectManager.setMesEquipes(new Vector<Equipe>());
+		ObjectManager.setMesPoules(new Vector<Poule>());
+	}
+	
+	public static void addEquipe(Equipe eTemp) {
+		if(eTemp != null) {
+			ObjectManager.getMesEquipes().add(eTemp);
+		} else {
+			System.out.println("Impossible d'ajouter une équipe null");
+		}
+	}
+	
+	public static void deleteEquipe(Equipe eTemp) {
+		if(eTemp != null) {
+			for(Equipe e : ObjectManager.getMesEquipes()) {
+				if(e.equals(eTemp)) {
+					ObjectManager.getMesEquipes().remove(e);
+				}
+			}
+		}
+	}
+
+	/**
+	 * @return the mesEquipes
+	 */
+	public static Vector<Equipe> getMesEquipes() {
+		return mesEquipes;
+	}
+
+	/**
+	 * @param mesEquipes the mesEquipes to set
+	 */
+	public static void setMesEquipes(Vector<Equipe> mesEquipes) {
+		ObjectManager.mesEquipes = mesEquipes;
+	}
+
+	/**
+	 * @return the mesPoules
+	 */
+	public static Vector<Poule> getMesPoules() {
+		return mesPoules;
+	}
+
+	/**
+	 * @param mesPoules the mesPoules to set
+	 */
+	public static void setMesPoules(Vector<Poule> mesPoules) {
+		ObjectManager.mesPoules = mesPoules;
+	}
+}
