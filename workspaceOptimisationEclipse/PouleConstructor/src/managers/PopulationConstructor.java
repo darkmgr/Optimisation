@@ -28,18 +28,18 @@ public class PopulationConstructor {
 			
 			if(i <= 9) {
 				p1.addEquipeInPoule(copieEquipe.get(nombreAleatoire));
+				p1.getIdEquipes().add(copieEquipe.get(nombreAleatoire).getNumeroEquipe());
 				copieEquipe.removeElementAt(nombreAleatoire);
 			} else {
 				p2.addEquipeInPoule(copieEquipe.get(nombreAleatoire));
+				p2.getIdEquipes().add(copieEquipe.get(nombreAleatoire).getNumeroEquipe());
 				copieEquipe.removeElementAt(nombreAleatoire);
 			}
 			i++;
 		}
 		
-		p1.calculNiveau();
-		p2.calculNiveau();
-		
-
+		p1.initPouleCalcul();
+		p2.initPouleCalcul();
 		
 		ObjectManager.addIndividu(new Individu(p1, p2));		
 	}

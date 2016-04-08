@@ -11,19 +11,13 @@ public class Equipe {
 	private double niveau;
 	private Vector<Double> matriceDistance;
 	private Vector<Double> matriceTemps;
-	private int numeroEquipe;
-	/**
-	 * Boolean pour savoir si l'équipe est déjà utilisé dans une Poule
-	 */
-	private boolean usedPoule;
-	
+	private int numeroEquipe;	
 	
 	public Equipe() {
 		this.setName("");
 		this.setMatriceDistance(new Vector<Double>());
 		this.setMatriceTemps(new Vector<Double>());
 		this.setNiveau(0);
-		this.setUsedPoule(false);
 	}
 	
 	public Equipe(String name, int numeroEquipe) {
@@ -32,7 +26,6 @@ public class Equipe {
 		this.setMatriceTemps(new Vector<Double>());
 		this.setNiveau(0);
 		this.setNumeroEquipe(numeroEquipe);
-		this.setUsedPoule(false);
 	}
 
 	public Equipe(String name, Vector<Double> matriceTemps, Vector<Double> matriceDistance, int numeroEquipe) {
@@ -41,7 +34,6 @@ public class Equipe {
 		this.setMatriceTemps(matriceTemps);
 		this.setNiveau(0);
 		this.setNumeroEquipe(numeroEquipe);
-		this.setUsedPoule(false);
 	}
 	
 	public Equipe(String name, Vector<Double> matriceTemps, Vector<Double> matriceDistance, double niveau, int numeroEquipe) {
@@ -50,7 +42,6 @@ public class Equipe {
 		this.setMatriceTemps(matriceTemps);
 		this.setNiveau(niveau);
 		this.setNumeroEquipe(numeroEquipe);
-		this.setUsedPoule(false);
 	}
 	
 	
@@ -128,19 +119,5 @@ public class Equipe {
 	public String toString() {
 		return "Equipe [name=" + name + ", numero="+numeroEquipe+", niveau=" + niveau + ", matriceDistance=" + matriceDistance
 				+ ", matriceTemps=" + matriceTemps + "]";
-	}
-
-	/**
-	 * @return the usedPoule
-	 */
-	public boolean isUsedPoule() {
-		return usedPoule;
-	}
-
-	/**
-	 * @param usedPoule the usedPoule to set
-	 */
-	public void setUsedPoule(boolean usedPoule) {
-		this.usedPoule = usedPoule;
 	}
 }

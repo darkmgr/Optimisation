@@ -50,15 +50,6 @@ public class ObjectManager {
 		}
 		return res;
 	}
-	
-	/**
-	 * Reset du boolean d'utilisation de l'équipe dans une poule pour chaque équipe de l'ObjectManager
-	 */
-	public static void resetBooleanUsedPoule() {
-		for(Equipe e : ObjectManager.getMesEquipes()) {
-			e.setUsedPoule(false);
-		}
-	}
 
 	/**
 	 * @return the mesEquipes

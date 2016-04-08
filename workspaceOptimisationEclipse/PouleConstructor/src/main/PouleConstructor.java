@@ -53,10 +53,10 @@ public class PouleConstructor {
 		
 		System.out.println("-------------");
 		System.out.println("-------------");
-		System.out.println("Test equipe ObjectManager");
-		for(Equipe e : ObjectManager.getMesEquipes()) {
-			System.out.println(e.toString());
-		}
+//		System.out.println("Test equipe ObjectManager");
+//		for(Equipe e : ObjectManager.getMesEquipes()) {
+//			System.out.println(e.toString());
+//		}
 	}
 
 }
