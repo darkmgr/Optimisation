@@ -150,6 +150,7 @@ public class Poule {
 			res += e.toString() + "\n";
 		}
 		res += "]";
+		this.initPouleCalcul();
 		res += "\nNiveau de la poule : " + this.getNiveau();
 		res += "\nDistance totale � parcourir : " + this.getDistanceTotale();
 		res += "\nTemps total � parcourir : " + this.getTempsTotal();
