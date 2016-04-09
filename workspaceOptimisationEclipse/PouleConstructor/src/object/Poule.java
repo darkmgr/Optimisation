@@ -7,7 +7,7 @@ public class Poule {
 	private static int max_size;
 	private Vector<Equipe> mesEquipes;
 	/**
-	 * Liste des ID des équipes dans la poule {@link Equipe.numeroEquipe}
+	 * Liste des ID des ï¿½quipes dans la poule {@link Equipe.numeroEquipe}
 	 */
 	private Vector<Integer> idEquipes;
 	private Double distanceTotale;
@@ -112,6 +112,7 @@ public class Poule {
 	 */
 	private void calculNiveau()
 	{
+		this.setNiveau(0);
 		for(Equipe e : this.getMesEquipes()) {
 			this.setNiveau(e.getNiveau()+this.getNiveau());
 		}
@@ -121,6 +122,7 @@ public class Poule {
 	 * Calcul de la distance totale de la Poule
 	 */
 	private void calculDistanceTotale() {
+		this.setDistanceTotale(0.0);
 		for(Equipe e : this.getMesEquipes()) {
 			for(Integer i : this.getIdEquipes()) {
 				this.setDistanceTotale(e.getMatriceDistance().get(i-1) + this.getDistanceTotale());
@@ -132,6 +134,7 @@ public class Poule {
 	 * Calcul du temps total de la Poule
 	 */
 	private void calculTempsTotal() {
+		this.setTempsTotal(0.0);
 		for(Equipe e : this.getMesEquipes()) {
 			for(Integer i : this.getIdEquipes()) {
 				this.setTempsTotal(e.getMatriceTemps().get(i-1) + this.getTempsTotal());
@@ -148,8 +151,8 @@ public class Poule {
 		}
 		res += "]";
 		res += "\nNiveau de la poule : " + this.getNiveau();
-		res += "\nDistance totale à  parcourir : " + this.getDistanceTotale();
-		res += "\nTemps total à parcourir : " + this.getTempsTotal();
+		res += "\nDistance totale ï¿½ parcourir : " + this.getDistanceTotale();
+		res += "\nTemps total ï¿½ parcourir : " + this.getTempsTotal();
 		res += "\n";
 		return res;
 	}
