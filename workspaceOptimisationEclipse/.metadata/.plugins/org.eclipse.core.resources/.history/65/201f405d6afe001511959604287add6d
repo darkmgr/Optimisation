@@ -59,12 +59,12 @@ public class PopulationConstructor {
 	// On fait muter l'individu, on l'ajoute a la population, et on selectionne les N meilleurs
 	public static void mutationPopulation(Vector<Individu> Population)
 	{
-//		for (Individu i : Population)
-//		{
-//			//TODO: créer la fonction dans classe Individu
-//			//i.mutation()
-//			
-//		}
+		for (Individu i : Population)
+		{
+			//TODO: créer la fonction dans classe Individu
+			//i.mutation()
+			
+		}
 		// On ajoute les mutants dans la population
 		// PopulationGlobale ?? .ajoutePopulation(Population);
 		// PopulationGlobale ?? . triMeilleursIndividus();
