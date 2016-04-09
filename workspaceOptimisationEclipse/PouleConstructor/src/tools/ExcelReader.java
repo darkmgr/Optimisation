@@ -27,11 +27,17 @@ public class ExcelReader {
 				for(String files : ExcelReader.getPathFiles()) {
 					FileInputStream inputStream = new FileInputStream(new File(files));
 					Workbook workbook = new XSSFWorkbook(inputStream);
-			        Sheet firstSheet = workbook.getSheetAt(0);
-			        Iterator<Row> iterator = firstSheet.iterator();
+			        Sheet timeSheet = workbook.getSheetAt(0);
+			        Sheet distanceSheet = workbook.getSheetAt(1);
+			        Sheet levelSheet = workbook.getSheetAt(2);
+			        Iterator<Row> iteratorTime = timeSheet.iterator();
+			        Iterator<Row> iteratorDistance = distanceSheet.iterator();
+			        Iterator<Row> iteratorLevel = levelSheet.iterator();
 			         
-			        while (iterator.hasNext()) {
-			        	Row nextRow = iterator.next();
+			        //Récupération de la matrice de Temps (feuille 1)
+			        while (iteratorTime.hasNext()) {
+			        	Row nextRow = iteratorTime.next();
+			        	
 			        	// Première ligne = liste des noms des équipes
 			        	if(nextRow.getRowNum() == 0) {			        		
 			        		Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -65,15 +71,82 @@ public class ExcelReader {
 				            
 				            for(Equipe e : ObjectManager.getMesEquipes()) {
 				            	if(e.getName().equals(name_equipe)) {
-				            		if(files.toLowerCase().contains("distance")) {
-				            			e.setMatriceDistance(matrice);
-				            		} else if(files.toLowerCase().contains("temps")) {
 				            			e.setMatriceTemps(matrice);
-				            		}
 				            	}
 				            }
 			        	}
 			        }
+			        
+			        //Récupération de la matrice de Distance (feuille 2)
+			        while (iteratorDistance.hasNext()) {
+			        	Row nextRow = iteratorDistance.next();
+			        	
+			        	// Première ligne = liste des noms des équipes
+			        	if(nextRow.getRowNum() == 0) {			        		
+			        		Iterator<Cell> cellIterator = nextRow.cellIterator();
+				             
+				            while (cellIterator.hasNext()) {
+				                Cell cell = cellIterator.next();
+				                
+				                switch (cell.getCellType()) {
+				                    case Cell.CELL_TYPE_STRING:
+				                        ObjectManager.addEquipe(new Equipe(cell.getStringCellValue(), cell.getColumnIndex()));
+				                        break;
+				                }
+				            }
+			        	} else {
+			        		String name_equipe = "";
+			        		Vector<Double> matrice = new Vector<Double>();
+				            Iterator<Cell> cellIterator = nextRow.cellIterator();				     
+				            
+				            while (cellIterator.hasNext()) {
+				                Cell cell = cellIterator.next();
+				                 
+				                switch (cell.getCellType()) {
+				                	case Cell.CELL_TYPE_STRING:
+				                		name_equipe = cell.getStringCellValue();
+				                		break;
+				                    case Cell.CELL_TYPE_NUMERIC:
+				                    	matrice.add(cell.getNumericCellValue());
+				                        break;
+				                }
+				            }
+				            
+				            for(Equipe e : ObjectManager.getMesEquipes()) {
+				            	if(e.getName().equals(name_equipe)) {
+				            			e.setMatriceDistance(matrice);
+				            	}
+				            }
+			        	}
+			        }
+			        
+			        //Récupération du niveau de chaque équipe (feuille 3)
+			        while (iteratorLevel.hasNext()) {
+			        	Row nextRow = iteratorLevel.next();
+			        	
+		        		String name_equipe = "";
+		        		double niveau = 0.0;
+			            Iterator<Cell> cellIterator = nextRow.cellIterator();				     
+			            
+			            while (cellIterator.hasNext()) {
+			                Cell cell = cellIterator.next();
+			                 
+			                switch (cell.getCellType()) {
+			                	case Cell.CELL_TYPE_STRING:
+			                		name_equipe = cell.getStringCellValue();
+			                		break;
+			                    case Cell.CELL_TYPE_NUMERIC:
+			                    	niveau = cell.getNumericCellValue();
+			                    	for(Equipe e : ObjectManager.getMesEquipes()) {
+						            	if(e.getName().contains(name_equipe)) {
+						            		e.setNiveau(niveau);
+						            	}
+						            }
+			                        break;
+			                }
+			            }
+			        }			
+			        
 			         
 			        workbook.close();
 			        inputStream.close();
