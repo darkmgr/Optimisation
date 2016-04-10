@@ -13,12 +13,12 @@ import tools.ExcelReader;
 public class PouleConstructor {
 
 	public static String version = "1.0";
-	public static String collaborateur = "PERARDELLE Olivier, MULLER Jean-François";
+	public static String collaborateur = "PERARDELLE Olivier, MULLER Jean-Franï¿½ois";
 	public static String logiciel = "PouleConstructor";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Bienvenue dans le logiciel " + logiciel + " version " + version + " crée par " + collaborateur);
+		System.out.println("Bienvenue dans le logiciel " + logiciel + " version " + version + " crï¿½e par " + collaborateur);
 		init();
 	}
 	
@@ -30,7 +30,7 @@ public class PouleConstructor {
 		
 		ConfigReader.setPathFile("./config.txt");
 		ConfigReader.getConfigFromFile();
-		//On indique la taille maximale du nombre d'équipe par Poule
+		//On indique la taille maximale du nombre d'ï¿½quipe par Poule
 		Poule.setMax_size(9);
 		
 		Vector<String> filesPath = new Vector<String>();
@@ -47,12 +47,20 @@ public class PouleConstructor {
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
-		//Génération d'un individu aléatoire
+		//Gï¿½nï¿½ration d'un individu alï¿½atoire
 		PopulationConstructor.GenererIndividuAleatoire();
-		System.out.println("Fin de la génération aléatoire d'un individu");
+		System.out.println("Fin de la gï¿½nï¿½ration alï¿½atoire d'un individu");
 		for(Individu i : ObjectManager.getMesIndividus()) {
 			System.out.println(i.toString());
 		}
+		
+		// Mutation des individus TODO : selection des N meilleurs individus
+		System.out.println("\nMutation des individus : \n\n");
+		for(Individu i : ObjectManager.getMesIndividus()) {
+			i.mutation();
+			System.out.println(i.toString());
+		}
+				
 		
 		System.out.println("-------------");
 		System.out.println("-------------");

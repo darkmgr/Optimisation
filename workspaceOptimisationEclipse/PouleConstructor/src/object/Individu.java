@@ -43,7 +43,12 @@ public void initCalculs()
 	this.poule1.initPouleCalcul();
 	this.poule2.initPouleCalcul();
 
-	this.EcartNiveau = this.poule1.getNiveau() - this.poule2.getNiveau(); // TODO : valeur absolue ou test if a>b
+	this.EcartNiveau = this.poule1.getNiveau() - this.poule2.getNiveau();
+	if (this.EcartNiveau <0)
+	{
+		this.EcartNiveau = -this.EcartNiveau;
+	}
+	
 	this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
 	this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
 }
@@ -74,14 +79,14 @@ public void initCalculs()
 	
 	@Override
 	public String toString() {
+		this.initCalculs();
 		String res = "";
 		res = "Individu [";
 		res += "Poule 1 : " + poule1.toString() + "\n";
 		res += "Poule 2 : " + poule2.toString() + "\n";
-		this.initCalculs();
-		res += "Temps total individu : " + this.TempsTotal + "\n";
+		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
-		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n";
+		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n=========================";
 		return res;
 	}	
 }
