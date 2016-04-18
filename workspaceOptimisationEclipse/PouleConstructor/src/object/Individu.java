@@ -1,8 +1,9 @@
 package object;
 
+import java.util.Comparator;
 import java.util.Vector;
 
-public class Individu {
+public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	private Poule poule1;
 	private Poule poule2;
 	private Double TempsTotal;
@@ -88,5 +89,20 @@ public void initCalculs()
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
 		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n=========================";
 		return res;
-	}	
+	}
+
+	@Override
+	public int compareTo(Individu iTemp) {
+		int comparator = 0;
+		comparator += (this.EcartNiveau).compareTo(iTemp.EcartNiveau);
+		comparator += (this.DistanceTotale).compareTo(iTemp.DistanceTotale);
+		comparator += (this.TempsTotal).compareTo(this.TempsTotal);
+		return comparator;
+	}
+
+	@Override
+	public int compare(Individu o1, Individu o2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

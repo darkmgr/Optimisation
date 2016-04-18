@@ -30,7 +30,7 @@ public class PouleConstructor {
 		
 		ConfigReader.setPathFile("./config.txt");
 		ConfigReader.getConfigFromFile();
-		//On indique la taille maximale du nombre d'�quipe par Poule
+		//On indique la taille maximale du nombre d'equipe par Poule
 		Poule.setMax_size(9);
 		
 		Vector<String> filesPath = new Vector<String>();
@@ -47,9 +47,9 @@ public class PouleConstructor {
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
-		//G�n�ration d'un individu al�atoire
-		PopulationConstructor.GenererIndividuAleatoire();
-		System.out.println("Fin de la g�n�ration al�atoire d'un individu");
+		//Generation d'un individu aleatoire
+		PopulationConstructor.GenererNIndividuAleatoire(1);
+		System.out.println("Fin de la generation aleatoire d'un individu");
 		for(Individu i : ObjectManager.getMesIndividus()) {
 			System.out.println(i.toString());
 		}
@@ -64,6 +64,8 @@ public class PouleConstructor {
 		
 		System.out.println("-------------");
 		System.out.println("-------------");
+		
+		PopulationConstructor.SelectionNMeilleursIndividus(1);
 //		System.out.println("Test equipe ObjectManager");
 //		for(Equipe e : ObjectManager.getMesEquipes()) {
 //			System.out.println(e.toString());
