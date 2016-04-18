@@ -123,7 +123,7 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 //		res += "Poule 2 : " + poule2.toString() + "\n";
 		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
-		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n============================";
+		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n=========================";
 		return res;
 	}
 

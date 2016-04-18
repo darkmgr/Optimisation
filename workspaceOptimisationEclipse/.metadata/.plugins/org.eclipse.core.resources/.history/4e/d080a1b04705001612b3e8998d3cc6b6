@@ -123,7 +123,7 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 //		res += "Poule 2 : " + poule2.toString() + "\n";
 		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
-		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n============================";
+		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n=========================";
 		return res;
 	}
 
@@ -131,20 +131,14 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public int compareTo(Individu iTemp) {
 		int comparator = 0;
 		if(this.EcartNiveau<iTemp.EcartNiveau) {
-			comparator -= 1;
-		} else if (this.EcartNiveau>iTemp.EcartNiveau) {
-			comparator += 1;
+			comparator = -1;
 		}
 		if(this.DistanceTotale<iTemp.DistanceTotale) {
-			comparator -= 1;
-		} else if (this.DistanceTotale>iTemp.DistanceTotale) {
-			comparator += 1;
+			
 		}
-		if(this.TempsTotal<iTemp.TempsTotal) {
-			comparator -= 1;
-		} else if(this.TempsTotal>iTemp.TempsTotal) {
-			comparator += 1;
-		}
+		comparator += (this.EcartNiveau).compareTo(iTemp.EcartNiveau);
+		comparator += (this.DistanceTotale).compareTo(iTemp.DistanceTotale);
+		comparator += (this.TempsTotal).compareTo(this.TempsTotal);
 		return comparator;
 	}
 

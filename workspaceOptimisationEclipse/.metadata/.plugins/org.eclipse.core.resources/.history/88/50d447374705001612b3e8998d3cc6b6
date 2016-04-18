@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import managers.ObjectManager;
 import managers.PopulationConstructor;
+import object.Equipe;
 import object.Individu;
 import object.Poule;
 import tools.ConfigReader;

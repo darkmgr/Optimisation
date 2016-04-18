@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import managers.ObjectManager;
 import managers.PopulationConstructor;
+import object.Equipe;
 import object.Individu;
 import object.Poule;
 import tools.ConfigReader;
@@ -39,9 +40,15 @@ public class PouleConstructor {
 		ExcelReader.getEquipeFromExcelFile();
 		
 		System.out.println("Fin de l'initialisation des Equipes");
+		for(Equipe e : ObjectManager.getMesEquipes()) {
+			System.out.println(e.toString());
+		}
+		
+		System.out.println("-------------");
+		System.out.println("-------------");
 		
 		//Generation d'un individu aleatoire
-		PopulationConstructor.GenererNIndividuAleatoire(10);
+		PopulationConstructor.GenererNIndividuAleatoire(1);
 		System.out.println("Fin de la generation aleatoire d'un individu");
 		for(Individu i : ObjectManager.getMesIndividus()) {
 			System.out.println(i.toString());
@@ -51,6 +58,7 @@ public class PouleConstructor {
 		System.out.println("\nMutation des individus : \n\n");
 		for(Individu i : ObjectManager.getMesIndividus()) {
 			i.mutation(10000);
+			System.out.println(i.toString());
 		}
 				
 		
