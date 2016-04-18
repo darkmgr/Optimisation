@@ -47,6 +47,10 @@ public class PouleConstructor {
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
+		
+		
+		
+		
 		//G�n�ration d'un individu al�atoire
 		PopulationConstructor.GenererIndividuAleatoire();
 		System.out.println("Fin de la g�n�ration al�atoire d'un individu");
@@ -57,7 +61,7 @@ public class PouleConstructor {
 		// Mutation des individus TODO : selection des N meilleurs individus
 		System.out.println("\nMutation des individus : \n\n");
 		for(Individu i : ObjectManager.getMesIndividus()) {
-			i.mutation();
+			i.mutation(1000);
 			System.out.println(i.toString());
 		}
 				

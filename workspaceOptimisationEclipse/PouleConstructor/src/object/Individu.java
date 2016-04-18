@@ -1,5 +1,6 @@
 package object;
 
+import java.util.Random;
 import java.util.Vector;
 
 public class Individu {
@@ -8,12 +9,12 @@ public class Individu {
 	private Double TempsTotal;
 	private Double DistanceTotale;
 	private Double EcartNiveau;
-	
+
 	public Individu(Poule poule1, Poule poule2) {
 		this.setPoule1(poule1);
 		this.setPoule2(poule2);
 	}
-	
+
 	/**
 	 * @return the poule1
 	 */
@@ -38,45 +39,80 @@ public class Individu {
 	public void setPoule2(Poule poule2) {
 		this.poule2 = poule2;
 	}
-public void initCalculs()
-{
-	this.poule1.initPouleCalcul();
-	this.poule2.initPouleCalcul();
-
-	this.EcartNiveau = this.poule1.getNiveau() - this.poule2.getNiveau();
-	if (this.EcartNiveau <0)
+	public void initCalculs()
 	{
-		this.EcartNiveau = -this.EcartNiveau;
+		this.poule1.initPouleCalcul();
+		this.poule2.initPouleCalcul();
+
+		this.EcartNiveau = this.poule1.getNiveau() - this.poule2.getNiveau();
+		if (this.EcartNiveau <0)
+		{
+			this.EcartNiveau = -this.EcartNiveau;
+		}
+
+		this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
+		this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
 	}
-	
-	this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
-	this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
-}
 	/**
 	 * 
 	 * On inverse les deux premieres equipes des poules pour faire muter l'individu
 	 * 
 	 */
-	
-	public void mutation(){
+
+	public void mutation(int nombreDeMutationsMax){
 		Vector<Equipe> temp1;
 		Vector<Equipe> temp2;
-		
+		boolean mutationInefficace = true;
+		int nombreIterations = 0;
+
+
+
+
 		temp1 = this.poule1.getMesEquipes();
 		temp2 = this.poule2.getMesEquipes();
+
+		this.initCalculs();
+
+		double tempsTotalAvantMutation = this.TempsTotal;
+		double distanceTotaleAvantMutation = this.DistanceTotale;
+		double ecartNiveauAvantMutation = this.EcartNiveau;			
+
+		while (mutationInefficace && nombreIterations < nombreDeMutationsMax)
+		{
+			Random rand = new Random();
+
+			/* On ajoute une equipe de la poule 1 dans la poule 2 au hasard */
+			int nombreAleatoire = rand.nextInt(temp1.size());		
+			temp2.add(temp1.get(nombreAleatoire));
+			temp1.remove(nombreAleatoire);
+
+			/* On ajoute une equipe de la poule 2 dans la poule 1 au hasard */
+			nombreAleatoire = rand.nextInt(temp2.size());		
+			temp1.add(temp2.get(nombreAleatoire));
+			temp2.remove(nombreAleatoire);
+
+
+
+			this.poule1.setMesEquipes(temp1);
+			this.poule2.setMesEquipes(temp2);
+
+			this.initCalculs();	
+			nombreIterations++;
+			if (this.TempsTotal < tempsTotalAvantMutation && this.DistanceTotale < distanceTotaleAvantMutation && this.EcartNiveau < ecartNiveauAvantMutation)
+			{
+				mutationInefficace = false;
+				System.out.println("====Mutation réussie====\nAprès " + nombreIterations + " mutations aléatoires ! \n");
+			}
+		}
 		
-		// On ajoute la premiere equipe a la fin du vecteur de l'autre poule
-		temp1.add(temp2.firstElement());
-		temp2.add(temp1.firstElement());
-		
-		//On supprime la premiere equipe
-		temp1.remove(0);
-		temp2.remove(0);
-		
-		this.poule1.setMesEquipes(temp1);
-		this.poule2.setMesEquipes(temp2);
+		if (mutationInefficace = true)
+		{
+			System.out.println("====Mutation echouée====\n l'individu est moins efficace qu'avant\n");
+		}
+
+
 	}
-	
+
 	@Override
 	public String toString() {
 		this.initCalculs();
