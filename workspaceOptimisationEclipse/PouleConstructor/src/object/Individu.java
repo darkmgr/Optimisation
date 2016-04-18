@@ -99,6 +99,7 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 
 			this.initCalculs();	
 			nombreIterations++;
+			/* TODO : a changer par une fonction de comparaison propre*/
 			if (this.TempsTotal < tempsTotalAvantMutation && this.DistanceTotale < distanceTotaleAvantMutation && this.EcartNiveau < ecartNiveauAvantMutation)
 			{
 				mutationInefficace = false;
