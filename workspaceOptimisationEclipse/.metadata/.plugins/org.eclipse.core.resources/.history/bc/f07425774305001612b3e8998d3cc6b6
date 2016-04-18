@@ -47,9 +47,19 @@ public class PouleConstructor {
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
+<<<<<<< HEAD
 		//Generation d'un individu aleatoire
 		PopulationConstructor.GenererNIndividuAleatoire(1);
 		System.out.println("Fin de la generation aleatoire d'un individu");
+=======
+		
+		
+		
+		
+		//G�n�ration d'un individu al�atoire
+		PopulationConstructor.GenererIndividuAleatoire();
+		System.out.println("Fin de la g�n�ration al�atoire d'un individu");
+>>>>>>> 3fed44ad2ecfcf423f8926f40ef91823624e96d0
 		for(Individu i : ObjectManager.getMesIndividus()) {
 			System.out.println(i.toString());
 		}

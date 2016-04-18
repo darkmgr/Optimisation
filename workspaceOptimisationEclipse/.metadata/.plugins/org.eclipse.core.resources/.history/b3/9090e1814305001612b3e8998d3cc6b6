@@ -1,7 +1,10 @@
 package object;
 
+<<<<<<< HEAD
 import java.util.Comparator;
+=======
 import java.util.Random;
+>>>>>>> 3fed44ad2ecfcf423f8926f40ef91823624e96d0
 import java.util.Vector;
 
 public class Individu implements Comparator<Individu>, Comparable<Individu> {
