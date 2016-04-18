@@ -116,7 +116,9 @@ public class PopulationConstructor {
 			
 			Collections.sort(copyAllIndividu);
 			
-			System.out.println("\nTrie des meilleurs individus : \n\n");
+			copyAllIndividu.setSize(nbIndividuSelectionne);
+			
+			System.out.println("\nTri des meilleurs individus : \n\n");
 			for(Individu i : copyAllIndividu) {
 				System.out.println(i.toString());
 			}

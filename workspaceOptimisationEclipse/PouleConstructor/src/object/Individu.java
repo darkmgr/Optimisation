@@ -102,13 +102,13 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 			if (this.TempsTotal < tempsTotalAvantMutation && this.DistanceTotale < distanceTotaleAvantMutation && this.EcartNiveau < ecartNiveauAvantMutation)
 			{
 				mutationInefficace = false;
-				System.out.println("====Mutation réussie====\nAprès " + nombreIterations + " mutations aléatoires ! \n");
+				//System.out.println("====Mutation réussie====\nAprès " + nombreIterations + " mutations aléatoires ! \n");
 			}
 		}
 		
 		if (mutationInefficace = true)
 		{
-			System.out.println("====Mutation echouée====\n l'individu est moins efficace qu'avant\n");
+			//System.out.println("====Mutation echouée====\n l'individu est moins efficace qu'avant\n");
 		}
 
 
@@ -123,28 +123,23 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 //		res += "Poule 2 : " + poule2.toString() + "\n";
 		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
-		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n============================";
+		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
 		return res;
 	}
 
 	@Override
 	public int compareTo(Individu iTemp) {
 		int comparator = 0;
-		if(this.EcartNiveau<iTemp.EcartNiveau) {
-			comparator -= 1;
-		} else if (this.EcartNiveau>iTemp.EcartNiveau) {
-			comparator += 1;
+		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
+			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
+		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
+			comparator = 0;
+		} else {
+			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
 		}
-		if(this.DistanceTotale<iTemp.DistanceTotale) {
-			comparator -= 1;
-		} else if (this.DistanceTotale>iTemp.DistanceTotale) {
-			comparator += 1;
-		}
-		if(this.TempsTotal<iTemp.TempsTotal) {
-			comparator -= 1;
-		} else if(this.TempsTotal>iTemp.TempsTotal) {
-			comparator += 1;
-		}
+		
 		return comparator;
 	}
 

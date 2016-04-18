@@ -41,11 +41,11 @@ public class PouleConstructor {
 		System.out.println("Fin de l'initialisation des Equipes");
 		
 		//Generation d'un individu aleatoire
-		PopulationConstructor.GenererNIndividuAleatoire(10);
+		PopulationConstructor.GenererNIndividuAleatoire(100);
 		System.out.println("Fin de la generation aleatoire d'un individu");
-		for(Individu i : ObjectManager.getMesIndividus()) {
-			System.out.println(i.toString());
-		}
+//		for(Individu i : ObjectManager.getMesIndividus()) {
+//			System.out.println(i.toString());
+//		}
 		
 		// Mutation des individus TODO : selection des N meilleurs individus
 		System.out.println("\nMutation des individus : \n\n");
@@ -57,7 +57,7 @@ public class PouleConstructor {
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
-		PopulationConstructor.SelectionNMeilleursIndividus(1);
+		PopulationConstructor.SelectionNMeilleursIndividus(10);
 //		System.out.println("Test equipe ObjectManager");
 //		for(Equipe e : ObjectManager.getMesEquipes()) {
 //			System.out.println(e.toString());
