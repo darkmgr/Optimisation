@@ -58,7 +58,6 @@ public class PouleConstructor {
 		//Selection des meilleurs individus
 		System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu"))+" meilleurs Individus");
 		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu")));
-		System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu"))+" meilleurs Individus");
 	}
 
 }
