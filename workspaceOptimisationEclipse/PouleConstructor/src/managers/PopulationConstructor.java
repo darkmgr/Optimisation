@@ -1,5 +1,6 @@
 package managers;
 
+import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
 
@@ -72,35 +73,57 @@ public class PopulationConstructor {
 
 	}
 	
-	public static void GenererIndividuAleatoire() {
-		//Cr�ation des deux poules de l'individu
-		Poule p1 = new Poule();
-		Poule p2 = new Poule();
-		
-		@SuppressWarnings("unchecked")
-		Vector<Equipe> copieEquipe = (Vector<Equipe>) ObjectManager.getMesEquipes().clone();
-		
-		
-		int i = 1;
-		while(!copieEquipe.isEmpty()) {
-			Random rand = new Random();
-			int nombreAleatoire = rand.nextInt(copieEquipe.size());
+	public static void GenererNIndividuAleatoire(int nbIndividuAleatoire) {
+		while(nbIndividuAleatoire!=0) {
+			//Creation des deux poules de l'individu
+			Poule p1 = new Poule();
+			Poule p2 = new Poule();
 			
-			if(i <= 9) {
-				p1.addEquipeInPoule(copieEquipe.get(nombreAleatoire));
-				p1.getIdEquipes().add(copieEquipe.get(nombreAleatoire).getNumeroEquipe());
-				copieEquipe.removeElementAt(nombreAleatoire);
-			} else {
-				p2.addEquipeInPoule(copieEquipe.get(nombreAleatoire));
-				p2.getIdEquipes().add(copieEquipe.get(nombreAleatoire).getNumeroEquipe());
-				copieEquipe.removeElementAt(nombreAleatoire);
+			@SuppressWarnings("unchecked")
+			Vector<Equipe> copieEquipe = (Vector<Equipe>) ObjectManager.getMesEquipes().clone();
+			
+			
+			int i = 1;
+			while(!copieEquipe.isEmpty()) {
+				Random rand = new Random();
+				int nombreAleatoire = rand.nextInt(copieEquipe.size());
+				
+				if(i <= 9) {
+					p1.addEquipeInPoule(copieEquipe.get(nombreAleatoire));
+					p1.getIdEquipes().add(copieEquipe.get(nombreAleatoire).getNumeroEquipe());
+					copieEquipe.removeElementAt(nombreAleatoire);
+				} else {
+					p2.addEquipeInPoule(copieEquipe.get(nombreAleatoire));
+					p2.getIdEquipes().add(copieEquipe.get(nombreAleatoire).getNumeroEquipe());
+					copieEquipe.removeElementAt(nombreAleatoire);
+				}
+				i++;
 			}
-			i++;
+			
+			p1.initPouleCalcul();
+			p2.initPouleCalcul();
+			
+			ObjectManager.addIndividu(new Individu(p1, p2));	
+			nbIndividuAleatoire--;
 		}
-		
-		p1.initPouleCalcul();
-		p2.initPouleCalcul();
-		
-		ObjectManager.addIndividu(new Individu(p1, p2));		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void SelectionNMeilleursIndividus(int nbIndividuSelectionne) {
+		if(!ObjectManager.getMesIndividus().isEmpty()) {
+			Vector<Individu> copyAllIndividu = new Vector<Individu>();
+			copyAllIndividu = (Vector<Individu>) ObjectManager.getMesIndividus().clone();
+			
+			Collections.sort(copyAllIndividu);
+			
+			System.out.println("\nTrie des meilleurs individus : \n\n");
+			for(Individu i : copyAllIndividu) {
+				System.out.println(i.toString());
+			}
+					
+			
+			System.out.println("-------------");
+			System.out.println("-------------");
+		}
 	}
 }

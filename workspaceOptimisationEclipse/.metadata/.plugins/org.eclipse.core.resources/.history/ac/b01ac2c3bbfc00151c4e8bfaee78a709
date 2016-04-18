@@ -1,6 +1,0 @@
-#Fichier de configuration du logiciel
-
-#Path des fichiers de données
-pathMatriceDistance = ./Matrice distance
-pathMatriceTemps = ./Matrice temps
-pathNiveau = ./Niveau
