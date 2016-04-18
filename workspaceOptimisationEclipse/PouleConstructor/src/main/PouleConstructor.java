@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import managers.ObjectManager;
 import managers.PopulationConstructor;
-import object.Individu;
 import object.Poule;
 import tools.ConfigReader;
 import tools.ExcelReader;
@@ -12,12 +11,12 @@ import tools.ExcelReader;
 public class PouleConstructor {
 
 	public static String version = "1.0";
-	public static String collaborateur = "PERARDELLE Olivier, MULLER Jean-Fran�ois";
+	public static String collaborateur = "PERARDELLE Olivier, MULLER Jean-Francois";
 	public static String logiciel = "PouleConstructor";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Bienvenue dans le logiciel " + logiciel + " version " + version + " cr�e par " + collaborateur);
+		System.out.println("Bienvenue dans le logiciel " + logiciel + " version " + version + " cree par " + collaborateur);
 		init();
 	}
 	
@@ -36,32 +35,26 @@ public class PouleConstructor {
 		filesPath.add(ConfigReader.getConfig().get("pathMatrices"));
 		
 		ExcelReader.setPathFiles(filesPath);
-		ExcelReader.getEquipeFromExcelFile();
 		
+		System.out.println("Debut de l'initialisation des Equipes");
+		ExcelReader.getEquipeFromExcelFile();
 		System.out.println("Fin de l'initialisation des Equipes");
+		
+		/** DEBUT de l'algorithme genetique **/
 		
 		//Generation d'un individu aleatoire
 		PopulationConstructor.GenererNIndividuAleatoire(100);
 		System.out.println("Fin de la generation aleatoire d'un individu");
-//		for(Individu i : ObjectManager.getMesIndividus()) {
-//			System.out.println(i.toString());
-//		}
-		
-		// Mutation des individus TODO : selection des N meilleurs individus
+
+		//Mutation des individus
 		System.out.println("\nMutation des individus : \n\n");
-		for(Individu i : ObjectManager.getMesIndividus()) {
-			i.mutation(10000);
-		}
-				
+		PopulationConstructor.MutationPopulation(ObjectManager.getMesIndividus());
 		
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
+		//Selection des meilleurs individus
 		PopulationConstructor.SelectionNMeilleursIndividus(10);
-//		System.out.println("Test equipe ObjectManager");
-//		for(Equipe e : ObjectManager.getMesEquipes()) {
-//			System.out.println(e.toString());
-//		}
 	}
 
 }

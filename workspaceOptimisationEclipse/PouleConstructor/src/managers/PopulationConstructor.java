@@ -57,20 +57,14 @@ public class PopulationConstructor {
 		Vector<Individu> Population = null;
 		return Population;
 	}
+	
 	// On fait muter l'individu, on l'ajoute a la population, et on selectionne les N meilleurs
-	public static void mutationPopulation(Vector<Individu> Population)
-	{
-//		for (Individu i : Population)
-//		{
-//			//TODO: créer la fonction dans classe Individu
-//			//i.mutation()
-//			
-//		}
-		// On ajoute les mutants dans la population
-		// PopulationGlobale ?? .ajoutePopulation(Population);
-		// PopulationGlobale ?? . triMeilleursIndividus();
-		
-
+	public static void MutationPopulation(Vector<Individu> Population) {
+		if(!ObjectManager.getMesIndividus().isEmpty()) {
+			for(Individu iTemp : ObjectManager.getMesIndividus()) {
+				iTemp.mutation(100);
+			}
+		}
 	}
 	
 	public static void GenererNIndividuAleatoire(int nbIndividuAleatoire) {
@@ -118,7 +112,7 @@ public class PopulationConstructor {
 			
 			copyAllIndividu.setSize(nbIndividuSelectionne);
 			
-			System.out.println("\nTri des meilleurs individus : \n\n");
+			System.out.println("Selection des "+nbIndividuSelectionne+" meilleurs individus : \n");
 			for(Individu i : copyAllIndividu) {
 				System.out.println(i.toString());
 			}

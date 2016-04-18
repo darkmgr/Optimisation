@@ -40,14 +40,16 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public void setPoule2(Poule poule2) {
 		this.poule2 = poule2;
 	}
-	public void initCalculs()
-	{
+	
+	
+	public void initCalculs() {
+		
 		this.poule1.initPouleCalcul();
 		this.poule2.initPouleCalcul();
 
 		this.EcartNiveau = this.poule1.getNiveau() - this.poule2.getNiveau();
-		if (this.EcartNiveau <0)
-		{
+		
+		if (this.EcartNiveau <0) {
 			this.EcartNiveau = -this.EcartNiveau;
 		}
 
@@ -61,13 +63,10 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	 */
 
 	public void mutation(int nombreDeMutationsMax){
-		Vector<Equipe> temp1;
-		Vector<Equipe> temp2;
+		Vector<Equipe> temp1 = new Vector<Equipe>();
+		Vector<Equipe> temp2 = new Vector<Equipe>();
 		boolean mutationInefficace = true;
 		int nombreIterations = 0;
-
-
-
 
 		temp1 = this.poule1.getMesEquipes();
 		temp2 = this.poule2.getMesEquipes();
@@ -78,8 +77,7 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 		double distanceTotaleAvantMutation = this.DistanceTotale;
 		double ecartNiveauAvantMutation = this.EcartNiveau;			
 
-		while (mutationInefficace && nombreIterations < nombreDeMutationsMax)
-		{
+		while (mutationInefficace && nombreIterations < nombreDeMutationsMax) {
 			Random rand = new Random();
 
 			/* On ajoute une equipe de la poule 1 dans la poule 2 au hasard */
@@ -100,19 +98,13 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 			this.initCalculs();	
 			nombreIterations++;
 			/* TODO : a changer par une fonction de comparaison propre*/
-			if (this.TempsTotal < tempsTotalAvantMutation && this.DistanceTotale < distanceTotaleAvantMutation && this.EcartNiveau < ecartNiveauAvantMutation)
-			{
+			if (this.TempsTotal < tempsTotalAvantMutation 
+					&& this.DistanceTotale < distanceTotaleAvantMutation 
+					&& this.EcartNiveau < ecartNiveauAvantMutation)	{
 				mutationInefficace = false;
 				//System.out.println("====Mutation réussie====\nAprès " + nombreIterations + " mutations aléatoires ! \n");
 			}
 		}
-		
-		if (mutationInefficace = true)
-		{
-			//System.out.println("====Mutation echouée====\n l'individu est moins efficace qu'avant\n");
-		}
-
-
 	}
 
 	@Override
