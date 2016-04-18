@@ -43,20 +43,18 @@ public class PouleConstructor {
 		/** DEBUT de l'algorithme genetique **/
 		
 		//Generation d'un individu aleatoire
-		System.out.println("Debut de la generation aleatoire des Individus");
-		PopulationConstructor.GenererNIndividuAleatoire(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoire")));
-		System.out.println("Fin de la generation aleatoire des Individus");
+		PopulationConstructor.GenererNIndividuAleatoire(100);
+		System.out.println("Fin de la generation aleatoire d'un individu");
 
 		//Mutation des individus
-		System.out.println("Debut de la mutation des Individus");
-		PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbMaxMutationParIndividu")));
+		System.out.println("Debut de la mutation des individus : \n\n");
+		PopulationConstructor.MutationPopulation(ObjectManager.getMesIndividus());
 		
-		System.out.println("Fin de la mutation des Individus");
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
 		//Selection des meilleurs individus
-		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu")));
+		PopulationConstructor.SelectionNMeilleursIndividus(10);
 	}
 
 }

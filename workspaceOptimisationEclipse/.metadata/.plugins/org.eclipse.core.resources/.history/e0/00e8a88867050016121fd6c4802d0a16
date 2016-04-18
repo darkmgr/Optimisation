@@ -44,19 +44,19 @@ public class PouleConstructor {
 		
 		//Generation d'un individu aleatoire
 		System.out.println("Debut de la generation aleatoire des Individus");
-		PopulationConstructor.GenererNIndividuAleatoire(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoire")));
+		PopulationConstructor.GenererNIndividuAleatoire(100);
 		System.out.println("Fin de la generation aleatoire des Individus");
 
 		//Mutation des individus
 		System.out.println("Debut de la mutation des Individus");
-		PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbMaxMutationParIndividu")));
+		PopulationConstructor.MutationPopulation();
 		
 		System.out.println("Fin de la mutation des Individus");
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
 		//Selection des meilleurs individus
-		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu")));
+		PopulationConstructor.SelectionNMeilleursIndividus(10);
 	}
 
 }

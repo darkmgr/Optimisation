@@ -58,11 +58,11 @@ public class PopulationConstructor {
 		return Population;
 	}
 	
-	// On fait muter l'individu
-	public static void MutationPopulation(int nbMutation) {
+	// On fait muter l'individu, on l'ajoute a la population, et on selectionne les N meilleurs
+	public static void MutationPopulation(Vector<Individu> Population) {
 		if(!ObjectManager.getMesIndividus().isEmpty()) {
 			for(Individu iTemp : ObjectManager.getMesIndividus()) {
-				iTemp.mutation(nbMutation);
+				iTemp.mutation(1000);
 			}
 		}
 	}

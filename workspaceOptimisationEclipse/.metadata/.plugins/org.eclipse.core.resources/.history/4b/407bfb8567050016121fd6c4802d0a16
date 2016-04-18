@@ -62,7 +62,7 @@ public class PopulationConstructor {
 	public static void MutationPopulation(int nbMutation) {
 		if(!ObjectManager.getMesIndividus().isEmpty()) {
 			for(Individu iTemp : ObjectManager.getMesIndividus()) {
-				iTemp.mutation(nbMutation);
+				iTemp.mutation(1000);
 			}
 		}
 	}

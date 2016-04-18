@@ -124,7 +124,7 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public int compareTo(Individu iTemp) {
 		int comparator = 0;
 		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
-			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau)*10000 + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau)*1000000 + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
 			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
 		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
 			comparator = 0;

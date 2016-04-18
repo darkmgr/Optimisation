@@ -59,10 +59,10 @@ public class PopulationConstructor {
 	}
 	
 	// On fait muter l'individu
-	public static void MutationPopulation(int nbMutation) {
+	public static void MutationPopulation() {
 		if(!ObjectManager.getMesIndividus().isEmpty()) {
 			for(Individu iTemp : ObjectManager.getMesIndividus()) {
-				iTemp.mutation(nbMutation);
+				iTemp.mutation(1000);
 			}
 		}
 	}

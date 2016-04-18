@@ -49,14 +49,14 @@ public class PouleConstructor {
 
 		//Mutation des individus
 		System.out.println("Debut de la mutation des Individus");
-		PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbMaxMutationParIndividu")));
+		PopulationConstructor.MutationPopulation(1000);
 		
 		System.out.println("Fin de la mutation des Individus");
 		System.out.println("-------------");
 		System.out.println("-------------");
 		
 		//Selection des meilleurs individus
-		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu")));
+		PopulationConstructor.SelectionNMeilleursIndividus(10);
 	}
 
 }

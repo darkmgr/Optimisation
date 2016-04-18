@@ -1,0 +1,5 @@
+#Fichier de configuration du logiciel
+#Cle=valeur
+
+#Path des fichiers de données
+pathMatrices=./Matrices.xlsx
