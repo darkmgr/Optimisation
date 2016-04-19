@@ -124,9 +124,9 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public String toString() {
 		this.initCalculs();
 		String res = "";
-		res = "Individu [";
-		res += "Poule 1 : " + poule1.toString() + "\n";
-		res += "Poule 2 : " + poule2.toString() + "\n";
+		//res = "Individu [";
+		//res += "Poule 1 : " + poule1.toString() + "\n";
+		//res += "Poule 2 : " + poule2.toString() + "\n";
 		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
 		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
@@ -136,16 +136,8 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	@Override
 	public int compareTo(Individu iTemp) {
 		int comparator = 0;
-//		if(this.DistanceTotale<iTemp.DistanceTotale) {
-//			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
-//		} else if (this.DistanceTotale==iTemp.DistanceTotale) {
-//			comparator = 0;
-//		} else {
-//			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
-//		}
-		
 		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
-			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau)*10000 + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
 			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
 		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
 			comparator = 0;

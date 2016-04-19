@@ -144,15 +144,15 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 //			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
 //		}
 		
-		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
-			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
-			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
-		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
-			comparator = 0;
-		} else {
-			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
-			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
-		}
+//		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
+//			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau)*10000 + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+//			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
+//		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
+//			comparator = 0;
+//		} else {
+//			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+//			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
+//		}
 		
 		return comparator;
 	}

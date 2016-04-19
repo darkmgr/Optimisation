@@ -10,4 +10,4 @@ nbIndividuMute=100
 nbMaxMutationParIndividu=1000
 nbSelectionMeilleurIndividuGeneration=250
 nbGeneration=20
-nbSelectionMeilleurIndividuFinal=1
+nbSelectionMeilleurIndividuFinal=10
