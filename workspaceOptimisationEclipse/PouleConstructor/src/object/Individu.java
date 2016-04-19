@@ -11,9 +11,22 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	private Double DistanceTotale;
 	private Double EcartNiveau;
 
+	public Individu() {
+		this.setPoule1(new Poule());
+		this.setPoule2(new Poule());
+	}
+	
 	public Individu(Poule poule1, Poule poule2) {
 		this.setPoule1(poule1);
 		this.setPoule2(poule2);
+	}
+	
+	public Individu(Poule poule1, Poule poule2, Double TT, Double DT, Double EN) {
+		this.setPoule1(poule1);
+		this.setPoule2(poule2);
+		this.TempsTotal = TT;
+		this.DistanceTotale = DT;
+		this.EcartNiveau = EN;
 	}
 
 	/**
@@ -111,9 +124,9 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public String toString() {
 		this.initCalculs();
 		String res = "";
-//		res = "Individu [";
-//		res += "Poule 1 : " + poule1.toString() + "\n";
-//		res += "Poule 2 : " + poule2.toString() + "\n";
+		//res = "Individu [";
+		//res += "Poule 1 : " + poule1.toString() + "\n";
+		//res += "Poule 2 : " + poule2.toString() + "\n";
 		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
 		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
 		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
@@ -140,5 +153,29 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public int compare(Individu o1, Individu o2) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public Double getTempsTotal() {
+		return TempsTotal;
+	}
+
+	public void setTempsTotal(Double tempsTotal) {
+		TempsTotal = tempsTotal;
+	}
+
+	public Double getDistanceTotale() {
+		return DistanceTotale;
+	}
+
+	public void setDistanceTotale(Double distanceTotale) {
+		DistanceTotale = distanceTotale;
+	}
+
+	public Double getEcartNiveau() {
+		return EcartNiveau;
+	}
+
+	public void setEcartNiveau(Double ecartNiveau) {
+		EcartNiveau = ecartNiveau;
 	}
 }

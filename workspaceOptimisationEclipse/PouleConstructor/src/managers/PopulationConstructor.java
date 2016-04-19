@@ -59,11 +59,28 @@ public class PopulationConstructor {
 	}
 	
 	// On fait muter l'individu
-	public static void MutationPopulation(int nbMutation) {
+	@SuppressWarnings("unchecked")
+	public static void MutationPopulation(int nbIndividuMute, int nbMutation) {
 		if(!ObjectManager.getMesIndividus().isEmpty()) {
-			for(Individu iTemp : ObjectManager.getMesIndividus()) {
-				iTemp.mutation(nbMutation);
+			Vector<Individu> copieIndividus = new Vector<Individu>();
+			copieIndividus = (Vector<Individu>) ObjectManager.getMesIndividus().clone();
+			Random rand = new Random();
+			
+			for(int i = 0; i < nbIndividuMute; i++) {
+				int nombreAleatoire = rand.nextInt(copieIndividus.size());
+				Individu iTempMute = new Individu();
+				iTempMute = copieIndividus.get(nombreAleatoire);
+				iTempMute.mutation(nbMutation);
+				//System.out.println("Test mutation : DT " + iTempMute.getDistanceTotale() + " EN " + iTempMute.getEcartNiveau() + " TT " + iTempMute.getTempsTotal());
+				ObjectManager.getMesIndividus().add(iTempMute);
 			}
+			
+			// On force le calcul des données pour éviter les nullpointerexceptions
+			for(Individu iTemp : ObjectManager.getMesIndividus()) {
+				iTemp.initCalculs();
+			}
+			
+			//System.out.println("Test nbIndividu in ObjectManager : " + ObjectManager.getMesIndividus().size());
 		}
 	}
 	
@@ -112,14 +129,17 @@ public class PopulationConstructor {
 			
 			copyAllIndividu.setSize(nbIndividuSelectionne);
 			
-			System.out.println("Selection des "+nbIndividuSelectionne+" meilleurs individus : \n");
-			for(Individu i : copyAllIndividu) {
-				System.out.println(i.toString());
-			}
+//			System.out.println("Selection des "+nbIndividuSelectionne+" meilleurs individus : \n");
+			
+			ObjectManager.setMesIndividus(copyAllIndividu);
+			
+//			for(Individu i : ObjectManager.getMesIndividus()) {
+//				System.out.println(i.toString());
+//			}
 					
 			
-			System.out.println("-------------");
-			System.out.println("-------------");
+//			System.out.println("-------------");
+//			System.out.println("-------------");
 		}
 	}
 }

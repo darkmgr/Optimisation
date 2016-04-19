@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import managers.ObjectManager;
 import managers.PopulationConstructor;
+import object.Individu;
 import object.Poule;
 import tools.ConfigReader;
 import tools.ExcelReader;
@@ -43,22 +44,36 @@ public class PouleConstructor {
 		/** DEBUT de l'algorithme genetique **/
 		
 		//Generation d'un individu aleatoire
-		System.out.println("Debut de la generation aleatoire des Individus");
-		PopulationConstructor.GenererNIndividuAleatoire(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoire")));
-		System.out.println("Fin de la generation aleatoire des Individus");
+		System.out.println("Debut de la generation initiale aleatoire des Individus");
+		PopulationConstructor.GenererNIndividuAleatoire(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoireInitial")));
+		System.out.println("Fin de la generation initiale aleatoire des Individus");
 
-		//Mutation des individus
-		System.out.println("Debut de la mutation des Individus");
-		PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbMaxMutationParIndividu")));
+		for(int q = 0; q < Integer.parseInt(ConfigReader.getConfig().get("nbGeneration")); q++) {
+			//Mutation des individus
+			System.out.println("Debut de la mutation des Individus de la generation " + (q+1));
+			PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuMute")), 
+					Integer.parseInt(ConfigReader.getConfig().get("nbMaxMutationParIndividu")));
+			
+			System.out.println("Fin de la mutation des Individus de la generation " + (q+1));
+			
+			//Selection des meilleurs individus
+			System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + (q+1));
+			PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration")));
+			System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + (q+1));
+		}
 		
-		System.out.println("Fin de la mutation des Individus");
 		System.out.println("-------------");
 		System.out.println("-------------");
+		System.out.println("Fin de l'algorithme génétique");
 		
-		//Selection des meilleurs individus
-		System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu"))+" meilleurs Individus");
-		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu")));
-		System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividu"))+" meilleurs Individus");
+		System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuFinal"))+" meilleurs Individus");
+		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuFinal")));
+		System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuFinal"))+" meilleurs Individus");
+		
+		System.out.println("Individus selectionnes : ");
+		for(Individu iTemp : ObjectManager.getMesIndividus()) {
+			System.out.println(iTemp.toString());
+		}
 	}
 
 }

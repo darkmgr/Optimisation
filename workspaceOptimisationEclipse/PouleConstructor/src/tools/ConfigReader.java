@@ -30,7 +30,7 @@ public class ConfigReader {
 					if(!sCurrentLine.matches("#.*")) {
 						//On ne prend que les valeurs correctement paramétrées
 						if(sCurrentLine.matches(".*=.*")) {
-							System.out.println(sCurrentLine);
+							//System.out.println(sCurrentLine);
 							config.put(sCurrentLine.split("=")[0], sCurrentLine.split("=")[1]);
 						}
 					}
