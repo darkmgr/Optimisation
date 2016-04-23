@@ -1,27 +1,17 @@
 package managers;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Random;
 import java.util.Vector;
 
 import object.Equipe;
 import object.Individu;
 import object.Poule;
+import object.SortableVectorIndividu;
 
 public class PopulationConstructor {
 
-	public PopulationConstructor() {
-		
-		/*
-		 * for (int i in 1 to config.NombreIndividus)
-		 * {
-		 * 		GenererIndividuAleatoire();
-		 * }
-		 * 
-		 * 
-		 * 
-		 * */
-		
+	public PopulationConstructor() {		
 	}
 	
 	public static Vector<Individu> SelectionMeilleursIndividus() {
@@ -122,24 +112,14 @@ public class PopulationConstructor {
 	@SuppressWarnings("unchecked")
 	public static void SelectionNMeilleursIndividus(int nbIndividuSelectionne) {
 		if(!ObjectManager.getMesIndividus().isEmpty()) {
-			Vector<Individu> copyAllIndividu = new Vector<Individu>();
-			copyAllIndividu = (Vector<Individu>) ObjectManager.getMesIndividus().clone();
+			SortableVectorIndividu copyAllIndividu = new SortableVectorIndividu();
+			copyAllIndividu.addAll((Collection<? extends Individu>) ObjectManager.getMesIndividus().clone());
 			
-			Collections.sort(copyAllIndividu);
-			
+			copyAllIndividu.sortIndividu();
 			copyAllIndividu.setSize(nbIndividuSelectionne);
 			
-//			System.out.println("Selection des "+nbIndividuSelectionne+" meilleurs individus : \n");
-			
 			ObjectManager.setMesIndividus(copyAllIndividu);
-			
-//			for(Individu i : ObjectManager.getMesIndividus()) {
-//				System.out.println(i.toString());
-//			}
-					
-			
-//			System.out.println("-------------");
-//			System.out.println("-------------");
+
 		}
 	}
 }

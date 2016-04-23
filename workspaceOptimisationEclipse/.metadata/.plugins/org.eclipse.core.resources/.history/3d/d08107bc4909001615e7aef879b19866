@@ -1,0 +1,198 @@
+package object;
+
+import java.util.Comparator;
+import java.util.Random;
+import java.util.Vector;
+
+public class Individu implements Comparator<Individu>, Comparable<Individu> {
+	private Poule poule1;
+	private Poule poule2;
+	private Double TempsTotal;
+	private Double DistanceTotale;
+	private Double EcartNiveau;
+
+	public Individu() {
+		this.setPoule1(new Poule());
+		this.setPoule2(new Poule());
+	}
+	
+	public Individu(Poule poule1, Poule poule2) {
+		this.setPoule1(poule1);
+		this.setPoule2(poule2);
+	}
+	
+	public Individu(Poule poule1, Poule poule2, Double TT, Double DT, Double EN) {
+		this.setPoule1(poule1);
+		this.setPoule2(poule2);
+		this.TempsTotal = TT;
+		this.DistanceTotale = DT;
+		this.EcartNiveau = EN;
+	}
+
+	/**
+	 * @return the poule1
+	 */
+	public Poule getPoule1() {
+		return poule1;
+	}
+	/**
+	 * @param poule1 the poule1 to set
+	 */
+	public void setPoule1(Poule poule1) {
+		this.poule1 = poule1;
+	}
+	/**
+	 * @return the poule2
+	 */
+	public Poule getPoule2() {
+		return poule2;
+	}
+	/**
+	 * @param poule2 the poule2 to set
+	 */
+	public void setPoule2(Poule poule2) {
+		this.poule2 = poule2;
+	}
+	
+	
+	public void initCalculs() {
+		
+		this.poule1.initPouleCalcul();
+		this.poule2.initPouleCalcul();
+
+		this.EcartNiveau = this.poule1.getNiveau() - this.poule2.getNiveau();
+		
+		if (this.EcartNiveau <0) {
+			this.EcartNiveau = -this.EcartNiveau;
+		}
+
+		this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
+		this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
+	}
+	/**
+	 * 
+	 * On inverse les deux premieres equipes des poules pour faire muter l'individu
+	 * 
+	 */
+
+	public void mutation(int nombreMaxDeMutations){
+		Vector<Equipe> temp1 = new Vector<Equipe>();
+		Vector<Equipe> temp2 = new Vector<Equipe>();
+		int nombreIterations = 0;
+
+		temp1 = this.poule1.getMesEquipes();
+		temp2 = this.poule2.getMesEquipes();
+
+		this.initCalculs();	
+
+		Random rand = new Random();
+		int mutationAleatoire = rand.nextInt(nombreMaxDeMutations+1);
+		
+		while (nombreIterations < mutationAleatoire) {
+			
+
+			/* On ajoute une equipe de la poule 1 dans la poule 2 au hasard */
+			int nombreAleatoire = rand.nextInt(temp1.size());		
+			temp2.add(temp1.get(nombreAleatoire));
+			temp1.remove(nombreAleatoire);
+
+			/* On ajoute une equipe de la poule 2 dans la poule 1 au hasard */
+			nombreAleatoire = rand.nextInt(temp2.size());		
+			temp1.add(temp2.get(nombreAleatoire));
+			temp2.remove(nombreAleatoire);
+
+			this.poule1.setMesEquipes(temp1);
+			this.poule2.setMesEquipes(temp2);
+
+			this.initCalculs();	
+			nombreIterations++;
+		}
+	}
+
+	@Override
+	public String toString() {
+		this.initCalculs();
+		String res = "";
+		res = "Individu [";
+		//res += "Poule 1 : " + poule1.toString() + "\n";
+		//res += "Poule 2 : " + poule2.toString() + "\n";
+		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
+		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
+		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
+		return res;
+	}
+
+	@Override
+	public int compareTo(Individu iTemp) {
+		int comparator = 0;
+//		if(this.DistanceTotale<iTemp.DistanceTotale) {
+//			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
+//		} else if (this.DistanceTotale==iTemp.DistanceTotale) {
+//			comparator = 0;
+//		} else {
+//			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
+//		}
+		
+		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
+			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
+		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
+			comparator = 0;
+		} else {
+			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
+			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
+		}
+		
+		return comparator;
+	}
+
+	@Override
+	public int compare(Individu o1, Individu o2) {
+		int comparator = 0;
+		//Si les deux individus compares ont les memes donnees calculees, ils sont egaux
+		if(o1.getDistanceTotale() == o2.getDistanceTotale()
+				&& o1.getEcartNiveau() == o2.getEcartNiveau()
+				&& o1.getTempsTotal() == o2.getTempsTotal()) {
+			comparator = 0;
+		}  // Si l'individu 1 est superieur on "l'avance"
+			else if (o1.getDistanceTotale() < o2.getDistanceTotale()
+				&& o1.getEcartNiveau() < o2.getEcartNiveau()
+				&& o1.getTempsTotal() < o2.getTempsTotal()) {
+			comparator = -1;
+		} // Si l'individu 1 est inferieur on le "recule"
+			else if (o1.getDistanceTotale() > o2.getDistanceTotale()
+					&& o1.getEcartNiveau() > o2.getEcartNiveau()
+					&& o1.getTempsTotal() > o2.getTempsTotal()) {
+			comparator = 1;
+		} // Si aucun individu n'est superieur a l'autre on les rend egaux
+			else {
+			comparator = 0;
+		}
+		
+		return comparator;
+	}
+
+	public Double getTempsTotal() {
+		return TempsTotal;
+	}
+
+	public void setTempsTotal(Double tempsTotal) {
+		TempsTotal = tempsTotal;
+	}
+
+	public Double getDistanceTotale() {
+		return DistanceTotale;
+	}
+
+	public void setDistanceTotale(Double distanceTotale) {
+		DistanceTotale = distanceTotale;
+	}
+
+	public Double getEcartNiveau() {
+		return EcartNiveau;
+	}
+
+	public void setEcartNiveau(Double ecartNiveau) {
+		EcartNiveau = ecartNiveau;
+	}
+}

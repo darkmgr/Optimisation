@@ -5,9 +5,9 @@
 pathMatrices=./Matrices.xlsx
 
 #Parametres algorithme genetique
-nbIndividuAleatoireInitial=1000
-nbIndividuMute=100
-nbMaxMutationParIndividu=1000
-nbSelectionMeilleurIndividuGeneration=250
-nbGeneration=20
-nbSelectionMeilleurIndividuFinal=1
+nbIndividuAleatoireInitial=100
+nbIndividuMute=25
+nbMaxAleatoireMutationParIndividu=6
+nbSelectionMeilleurIndividuGeneration=50
+nbGeneration=5
+nbSelectionMeilleurIndividuFinal=10

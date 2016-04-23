@@ -52,7 +52,7 @@ public class PouleConstructor {
 			//Mutation des individus
 			System.out.println("Debut de la mutation des Individus de la generation " + (q+1));
 			PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuMute")), 
-					Integer.parseInt(ConfigReader.getConfig().get("nbMaxMutationParIndividu")));
+					Integer.parseInt(ConfigReader.getConfig().get("nbMaxAleatoireMutationParIndividu")));
 			
 			System.out.println("Fin de la mutation des Individus de la generation " + (q+1));
 			

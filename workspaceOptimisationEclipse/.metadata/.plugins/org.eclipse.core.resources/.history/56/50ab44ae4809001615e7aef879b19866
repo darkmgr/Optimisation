@@ -1,0 +1,34 @@
+package object;
+
+import java.util.Comparator;
+import java.util.Vector;
+
+public class SortableVectorIndividu extends Vector<Individu> implements Comparator {
+
+	@Override
+	public int compare(Object o1, Object o2) {
+		int comparator = 0;
+		//Si les deux individus compares ont les memes donnees calculees, ils sont egaux
+		if(o1.getDistanceTotale() == o2.getDistanceTotale()
+				&& o1.getEcartNiveau() == o2.getEcartNiveau()
+				&& o1.getTempsTotal() == o2.getTempsTotal()) {
+			comparator = 0;
+		}  // Si l'individu 1 est superieur on "l'avance"
+			else if (o1.getDistanceTotale() < o2.getDistanceTotale()
+				&& o1.getEcartNiveau() < o2.getEcartNiveau()
+				&& o1.getTempsTotal() < o2.getTempsTotal()) {
+			comparator = -1;
+		} // Si l'individu 1 est inferieur on le "recule"
+			else if (o1.getDistanceTotale() > o2.getDistanceTotale()
+					&& o1.getEcartNiveau() > o2.getEcartNiveau()
+					&& o1.getTempsTotal() > o2.getTempsTotal()) {
+			comparator = 1;
+		} // Si aucun individu n'est superieur a l'autre on les rend egaux
+			else {
+			comparator = 0;
+		}
+		
+		return comparator;
+	}
+
+}

@@ -53,7 +53,7 @@ On entre dans la boucle générationnelle :
         
         On peut choisir de faire ou un croisement ou une mutation
         Croissement : multi point, on divise un individu en N, et on mélange les parties avec les autres individus.
-        Mutation :
+        Mutation : 
         
     
     3) Nouvelle population

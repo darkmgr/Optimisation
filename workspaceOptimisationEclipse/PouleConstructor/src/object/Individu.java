@@ -1,10 +1,9 @@
 package object;
 
-import java.util.Comparator;
 import java.util.Random;
 import java.util.Vector;
 
-public class Individu implements Comparator<Individu>, Comparable<Individu> {
+public class Individu {
 	private Poule poule1;
 	private Poule poule2;
 	private Double TempsTotal;
@@ -75,23 +74,21 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	 * 
 	 */
 
-	public void mutation(int nombreDeMutationsMax){
+	public void mutation(int nombreMaxDeMutations){
 		Vector<Equipe> temp1 = new Vector<Equipe>();
 		Vector<Equipe> temp2 = new Vector<Equipe>();
-		boolean mutationInefficace = true;
 		int nombreIterations = 0;
 
 		temp1 = this.poule1.getMesEquipes();
 		temp2 = this.poule2.getMesEquipes();
 
-		this.initCalculs();
+		this.initCalculs();	
 
-		double tempsTotalAvantMutation = this.TempsTotal;
-		double distanceTotaleAvantMutation = this.DistanceTotale;
-		double ecartNiveauAvantMutation = this.EcartNiveau;			
-
-		while (mutationInefficace && nombreIterations < nombreDeMutationsMax) {
-			Random rand = new Random();
+		Random rand = new Random();
+		int mutationAleatoire = rand.nextInt(nombreMaxDeMutations+1);
+		
+		while (nombreIterations < mutationAleatoire) {
+			
 
 			/* On ajoute une equipe de la poule 1 dans la poule 2 au hasard */
 			int nombreAleatoire = rand.nextInt(temp1.size());		
@@ -103,20 +100,11 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 			temp1.add(temp2.get(nombreAleatoire));
 			temp2.remove(nombreAleatoire);
 
-
-
 			this.poule1.setMesEquipes(temp1);
 			this.poule2.setMesEquipes(temp2);
 
 			this.initCalculs();	
 			nombreIterations++;
-			/* TODO : a changer par une fonction de comparaison propre*/
-			if (this.TempsTotal < tempsTotalAvantMutation 
-					&& this.DistanceTotale < distanceTotaleAvantMutation 
-					&& this.EcartNiveau < ecartNiveauAvantMutation)	{
-				mutationInefficace = false;
-				//System.out.println("====Mutation réussie====\nAprès " + nombreIterations + " mutations aléatoires ! \n");
-			}
 		}
 	}
 
@@ -124,43 +112,15 @@ public class Individu implements Comparator<Individu>, Comparable<Individu> {
 	public String toString() {
 		this.initCalculs();
 		String res = "";
-		res = "Individu [";
-		res += "Poule 1 : " + poule1.toString() + "\n";
-		res += "Poule 2 : " + poule2.toString() + "\n";
-		res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
-		res += "Distance totale individu : " + this.DistanceTotale +  "\n";
-		res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
+		//res = "Individu [";
+		//res += "Poule 1 : " + poule1.toString() + "\n";
+		//res += "Poule 2 : " + poule2.toString() + "\n";
+		//res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
+		//res += "Distance totale individu : " + this.DistanceTotale +  "\n";
+		//res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
+		
+		res = "DT : " + this.DistanceTotale + " TT : " + this.TempsTotal + " EN : " + this.EcartNiveau;
 		return res;
-	}
-
-	@Override
-	public int compareTo(Individu iTemp) {
-		int comparator = 0;
-//		if(this.DistanceTotale<iTemp.DistanceTotale) {
-//			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
-//		} else if (this.DistanceTotale==iTemp.DistanceTotale) {
-//			comparator = 0;
-//		} else {
-//			comparator = this.DistanceTotale.compareTo(iTemp.DistanceTotale);
-//		}
-		
-		if(this.EcartNiveau<iTemp.EcartNiveau && this.DistanceTotale<iTemp.DistanceTotale && this.TempsTotal<iTemp.TempsTotal) {
-			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
-			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
-		} else if (this.EcartNiveau==iTemp.EcartNiveau && this.DistanceTotale==iTemp.DistanceTotale && this.TempsTotal==iTemp.TempsTotal) {
-			comparator = 0;
-		} else {
-			comparator = this.EcartNiveau.compareTo(iTemp.EcartNiveau) + this.DistanceTotale.compareTo(iTemp.DistanceTotale)
-			+ this.TempsTotal.compareTo(iTemp.TempsTotal);
-		}
-		
-		return comparator;
-	}
-
-	@Override
-	public int compare(Individu o1, Individu o2) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	public Double getTempsTotal() {

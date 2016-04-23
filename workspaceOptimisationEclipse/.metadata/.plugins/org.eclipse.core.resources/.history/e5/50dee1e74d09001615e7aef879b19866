@@ -1,0 +1,13 @@
+#Fichier de configuration du logiciel
+#Cle=valeur
+
+#Path des fichiers de données
+pathMatrices=./Matrices.xlsx
+
+#Parametres algorithme genetique
+nbIndividuAleatoireInitial=100
+nbIndividuMute=25
+nbMaxAleatoireMutationParIndividu=6
+nbSelectionMeilleurIndividuGeneration=10
+nbGeneration=10
+nbSelectionMeilleurIndividuFinal=10
