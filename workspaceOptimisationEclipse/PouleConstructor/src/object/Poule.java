@@ -145,16 +145,10 @@ public class Poule {
 	@Override
 	public String toString() {
 		String res = "";
-		res = "[mesEquipes = ";
+		res = "====Equipes====\n";
 		for(Equipe e : this.getMesEquipes()) {
-			res += e.toString() + "\n";
+			res += e.toString();
 		}
-		res += "]";
-		this.initPouleCalcul();
-		res += "\nNiveau de la poule : " + this.getNiveau();
-		res += "\nDistance totale a parcourir : " + this.getDistanceTotale();
-		res += "\nTemps total a parcourir : " + this.getTempsTotal();
-		res += "\n";
 		return res;
 	}
 }

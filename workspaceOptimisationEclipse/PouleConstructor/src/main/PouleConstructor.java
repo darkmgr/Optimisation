@@ -29,14 +29,21 @@ public class PouleConstructor {
 		
 		ConfigReader.setPathFile("./config.txt");
 		ConfigReader.getConfigFromFile();
+		
+		
+		//TODO : tournois complexes
 		//On indique la taille maximale du nombre d'equipe par Poule
-		Poule.setMax_size(9);
+		Poule.setMax_size(Integer.parseInt(ConfigReader.getConfig().get("nbEquipeParPoule")));
 		
 		Vector<String> filesPath = new Vector<String>();
 		filesPath.add(ConfigReader.getConfig().get("pathMatrices"));
 		
 		ExcelReader.setPathFiles(filesPath);
 		
+		
+		System.out.println("Crit√®re de selection des equipes (Temps ou distance) : " + ConfigReader.getConfig().get("MethodeSelection"));
+		System.out.println("Crit√®re de changement (mutation ou croisement) : " + ConfigReader.getConfig().get("MethodeChangement"));
+				
 		System.out.println("Debut de l'initialisation des Equipes");
 		ExcelReader.getEquipeFromExcelFile();
 		System.out.println("Fin de l'initialisation des Equipes");
@@ -44,27 +51,34 @@ public class PouleConstructor {
 		/** DEBUT de l'algorithme genetique **/
 		
 		//Generation d'un individu aleatoire
-		System.out.println("Debut de la generation initiale aleatoire des Individus");
+		System.out.println("Debut de la generation initiale aleatoire des " + Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoireInitial")) + " Individus");
 		PopulationConstructor.GenererNIndividuAleatoire(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoireInitial")));
 		System.out.println("Fin de la generation initiale aleatoire des Individus");
 
 		for(int q = 0; q < Integer.parseInt(ConfigReader.getConfig().get("nbGeneration")); q++) {
 			//Mutation des individus
-			System.out.println("Debut de la mutation des Individus de la generation " + (q+1));
+			System.out.println("======================\nD√©but de la generation " + q);
+			
+			
+			// TODO : MUTATION OU CROISEMENT
+			System.out.println("Debut de la mutation des Individus de la generation " + q);
 			PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuMute")), 
 					Integer.parseInt(ConfigReader.getConfig().get("nbMaxAleatoireMutationParIndividu")));
 			
-			System.out.println("Fin de la mutation des Individus de la generation " + (q+1));
+			System.out.println("Fin de la mutation des Individus de la generation " + q);
 			
 			//Selection des meilleurs individus
-			System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + (q+1));
+			System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
 			PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration")));
-			System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + (q+1));
+			System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
+			
+			
+			System.out.println("Fin de la generation " + q + "\n==========================");
 		}
 		
 		System.out.println("-------------");
 		System.out.println("-------------");
-		System.out.println("Fin de l'algorithme gÈnÈtique");
+		System.out.println("Fin de l'algorithme genetique");
 		
 		System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuFinal"))+" meilleurs Individus");
 		PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuFinal")));
@@ -72,7 +86,7 @@ public class PouleConstructor {
 		
 		System.out.println("Individus selectionnes : ");
 		for(Individu iTemp : ObjectManager.getMesIndividus()) {
-			System.out.println(iTemp.toString());
+			System.out.println(iTemp.toString(true));
 		}
 	}
 

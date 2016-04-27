@@ -117,7 +117,6 @@ public class Equipe {
 	
 	@Override
 	public String toString() {
-		return "Equipe [name=" + name + ", numero="+numeroEquipe+", niveau=" + niveau + ", matriceDistance=" + matriceDistance
-				+ ", matriceTemps=" + matriceTemps + "]";
+		return name + " niveau=" + niveau + "\n";
 	}
 }
