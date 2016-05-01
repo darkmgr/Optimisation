@@ -3,7 +3,6 @@ package object;
 import java.util.Random;
 import java.util.Vector;
 
-import managers.ObjectManager;
 import tools.ConfigReader;
 
 
@@ -103,89 +102,6 @@ public class Individu  {
 
 		this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
 		this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
-	}
-	/**
-	 * 
-	 * On inverse deux equipes aléatoires des poules pour faire muter l'individu
-	 * 
-	 */
-
-	public void croisement(){
-
-		Vector<Equipe> temp1 = new Vector<Equipe>();
-		Vector<Equipe> temp2 = new Vector<Equipe>();
-		int i, j;
-		temp1 = this.poule1.getMesEquipes();
-		temp2 = this.poule2.getMesEquipes();
-
-		this.initCalculs();	
-
-		// TODO : 4 = moitié pour tournoi complexe
-		for (i=0; i<4; i++)
-		{
-
-			temp2.add(temp1.get(i));
-			//TODO : 9 = taille poule
-			temp1.add(temp2.get(9-i));
-			temp2.remove(9-1-i);
-			temp1.remove(i);
-
-
-		}
-		// Retirer les doublons TODO : taille equipe
-		for(i = 0;i<9;i++){
-			for(j = 0;j<9;j++){
-				if(temp1.get(i).equals(temp1.get(j))) {
-					temp1.remove(j);
-				}
-			}
-		}
-
-		for(i = 0;i<9;i++){
-			for(j = 0;j<9;j++){
-				if(temp2.get(i).equals(temp2.get(j))) {
-					temp2.remove(j);
-				}
-			}
-		}
-
-		// On parcours les equipes des 2 poules et on ajoute celles qui manquent
-		boolean estDedans = false;
-		for(i = 0;i<9;i++){
-			estDedans = false;
-			for (j=0;j<9;j++)
-			{
-				if (temp1.get(j).equals(ObjectManager.getMesEquipes().get(i) ))
-				{
-					estDedans = true;
-					break;
-				}
-				if (temp2.get(j).equals(ObjectManager.getMesEquipes().get(i) ))
-				{
-					estDedans = true;
-					break;
-				}
-			}
-
-			if (!estDedans)
-			{
-				if (temp1.size() <= 9)
-				{
-					temp1.add(ObjectManager.getMesEquipes().get(i));
-				}
-				else if (temp2.size() <= 9)
-				{
-					temp2.add (ObjectManager.getMesEquipes().get(i));
-				}
-				else
-				{
-					System.out.println("Erreur Individu.java croisement echoue !!");
-					System.exit(1);
-				}
-			}			
-
-		}
-		// Si l'equipe n'est pas dedans on l'ajoute
 	}
 
 	public void mutation(int nombreMaxDeMutations){

@@ -41,8 +41,8 @@ public class PouleConstructor {
 		ExcelReader.setPathFiles(filesPath);
 		
 		
-		System.out.println("Critère de selection des equipes (Temps ou distance) : " + ConfigReader.getConfig().get("MethodeSelection"));
-		System.out.println("Critère de changement (mutation ou croisement) : " + ConfigReader.getConfig().get("MethodeChangement"));
+		System.out.println("Critere de selection des equipes (Temps ou distance) : " + ConfigReader.getConfig().get("MethodeSelection"));
+		System.out.println("Critere de changement (mutation ou croisement) : " + ConfigReader.getConfig().get("MethodeChangement"));
 				
 		System.out.println("Debut de l'initialisation des Equipes");
 		ExcelReader.getEquipeFromExcelFile();
@@ -55,25 +55,44 @@ public class PouleConstructor {
 		PopulationConstructor.GenererNIndividuAleatoire(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuAleatoireInitial")));
 		System.out.println("Fin de la generation initiale aleatoire des Individus");
 
-		for(int q = 0; q < Integer.parseInt(ConfigReader.getConfig().get("nbGeneration")); q++) {
-			//Mutation des individus
-			System.out.println("======================\nDébut de la generation " + q);
-			
-			
-			// TODO : MUTATION OU CROISEMENT
-			System.out.println("Debut de la mutation des Individus de la generation " + q);
-			PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuMute")), 
-					Integer.parseInt(ConfigReader.getConfig().get("nbMaxAleatoireMutationParIndividu")));
-			
-			System.out.println("Fin de la mutation des Individus de la generation " + q);
-			
-			//Selection des meilleurs individus
-			System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
-			PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration")));
-			System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
-			
-			
-			System.out.println("Fin de la generation " + q + "\n==========================");
+		
+		if(ConfigReader.getConfig().get("MethodeChangement").equalsIgnoreCase("mutation")) {
+			for(int q = 0; q < Integer.parseInt(ConfigReader.getConfig().get("nbGeneration")); q++) {
+				//Mutation des individus
+				System.out.println("======================\nDebut de la generation " + q);
+				
+				System.out.println("Debut de la mutation des Individus de la generation " + q);
+				PopulationConstructor.MutationPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuMute")), 
+						Integer.parseInt(ConfigReader.getConfig().get("nbMaxAleatoireMutationParIndividu")));
+				
+				System.out.println("Fin de la mutation des Individus de la generation " + q);
+				
+				//Selection des meilleurs individus
+				System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
+				PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration")));
+				System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
+				
+				
+				System.out.println("Fin de la generation " + q + "\n==========================");
+			}
+		} else if (ConfigReader.getConfig().get("MethodeChangement").equalsIgnoreCase("croisement")) {
+			for(int q = 0; q < Integer.parseInt(ConfigReader.getConfig().get("nbGeneration")); q++) {
+				//Croisement des individus
+				System.out.println("======================\nDebut de la generation " + q);
+				
+				System.out.println("Debut du croisement des Individus de la generation " + q);
+				PopulationConstructor.CroisementPopulation(Integer.parseInt(ConfigReader.getConfig().get("nbIndividuCroisement")));
+				
+				System.out.println("Fin du croisement des Individus de la generation " + q);
+				
+				//Selection des meilleurs individus
+				System.out.println("Debut de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
+				PopulationConstructor.SelectionNMeilleursIndividus(Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration")));
+				System.out.println("Fin de la selection des "+Integer.parseInt(ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration"))+" meilleurs Individus de la generation " + q);
+				
+				
+				System.out.println("Fin de la generation " + q + "\n==========================");
+			}
 		}
 		
 		System.out.println("-------------");

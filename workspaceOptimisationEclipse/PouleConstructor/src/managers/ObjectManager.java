@@ -50,6 +50,17 @@ public class ObjectManager {
 		}
 		return res;
 	}
+	
+	public static boolean existEquipeWithName(Vector<Equipe> vTemp, String name) {
+		boolean res = false;
+		
+		for(Equipe e : vTemp) {
+			if(e.getName().equals(name)) {
+				res = true;
+			}
+		}
+		return res;
+	}
 
 	/**
 	 * @return the mesEquipes

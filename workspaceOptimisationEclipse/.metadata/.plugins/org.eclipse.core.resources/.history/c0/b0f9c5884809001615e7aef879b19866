@@ -1,8 +1,0 @@
-package object;
-
-import java.util.Comparator;
-import java.util.Vector;
-
-public class SortableVectorIndividu extends Vector implements Comparator {
-
-}

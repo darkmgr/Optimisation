@@ -1,0 +1,253 @@
+package managers;
+
+import java.util.Random;
+import java.util.Vector;
+
+import object.Equipe;
+import object.Individu;
+import object.Poule;
+import tools.ConfigReader;
+
+public class ObjectManager {
+
+	private static Vector<Equipe> mesEquipes;
+	private static Vector<Individu> mesIndividus;
+	
+	public ObjectManager() {
+		ObjectManager.setMesEquipes(new Vector<Equipe>());
+		ObjectManager.setMesIndividus(new Vector<Individu>());
+	}
+	
+	/**
+	 * 
+	 */
+	public static void CroisementIndividu() {
+		int nbEquipe = Integer.parseInt(ConfigReader.getConfig().get("nbEquipeParPoule"));
+		
+		//On prend deux individus aleatoires parmis les individus totaux du Manager
+		Random rand = new Random();
+		int nombreAleatoire = rand.nextInt(ObjectManager.getMesIndividus().size());
+		
+		Individu i1 = new Individu();
+		i1 = ObjectManager.getMesIndividus().get(nombreAleatoire);
+		
+		nombreAleatoire = rand.nextInt(ObjectManager.getMesIndividus().size());
+		Individu i2 = new Individu();
+		i2 = ObjectManager.getMesIndividus().get(nombreAleatoire);
+		
+		//On prend la premiere moitie de poule de i1 et la deuxieme moitie de poule de i2
+		Poule p1 = new Poule();
+		Poule p2 = new Poule();
+		
+		for(int i = 0; i < nbEquipe; i++) {
+			if(i < (nbEquipe/2)) {
+				p1.addEquipeInPoule(i1.getPoule1().getMesEquipes().get(i));
+				p1.getIdEquipes().add(i1.getPoule1().getIdEquipes().get(i));
+			} else {
+				p1.addEquipeInPoule(i2.getPoule1().getMesEquipes().get(i));
+				p1.getIdEquipes().add(i2.getPoule1().getIdEquipes().get(i));
+			}
+		}
+		
+		for(int i = 0; i < nbEquipe; i++) {
+			if(i < (nbEquipe/2)) {
+				p2.addEquipeInPoule(i2.getPoule2().getMesEquipes().get(i));
+				p2.getIdEquipes().add(i2.getPoule2().getIdEquipes().get(i));
+			} else {
+				p2.addEquipeInPoule(i1.getPoule2().getMesEquipes().get(i));
+				p2.getIdEquipes().add(i1.getPoule2().getIdEquipes().get(i));
+			}
+		}
+		
+		System.out.println("Test croisementIndividu : \np1 = \n" +p1.toString());
+		System.out.println("Test croisementIndividu : \np2 = \n" + p2.toString());
+		//A ce stade nous avons deux poules qui peuvent contenir les memes equipes, il faut verifier l'uniformite de l'individu
+		//pour le rendre valide, c'est a dire eliminer les doublons et ajouter les equipes manquantes.
+		
+		//En premier lieu nous allons eliminer les doublons. Nous allons utiliser @ObjectManager.getMesEquipes() qui contient la liste
+		//des equipes initiales.
+		
+		//Vecteur temporaire pour ajouter les equipes en doublant
+		//On ne peut pas supprimer une equipe d'un vecteur dans une boucle !
+		Vector<Equipe> vETemp = new Vector<Equipe>();
+		
+		for(Equipe eTemp : p1.getMesEquipes()) {
+			int nbEquipeSimilaire = 0;
+			
+			for(Equipe eTemp2 : p1.getMesEquipes()) {
+				if(eTemp.equals(eTemp2)) {
+					nbEquipeSimilaire++;
+				}
+				if(eTemp.equals(eTemp2) && nbEquipeSimilaire > 1 && !ObjectManager.existEquipeWithName(vETemp, eTemp.getName())) {
+					vETemp.addElement(eTemp);
+				}
+			}
+			
+			for(Equipe eTemp3 : p2.getMesEquipes()) {
+				if(eTemp.equals(eTemp3)) {
+					nbEquipeSimilaire++;
+				}
+				if(eTemp.equals(eTemp3) && nbEquipeSimilaire > 1 && !ObjectManager.existEquipeWithName(vETemp, eTemp.getName())) {
+					vETemp.addElement(eTemp);
+				}
+			}
+		}
+		
+		for(Equipe eTemp : p2.getMesEquipes()) {
+			int nbEquipeSimilaire = 0;
+			
+			for(Equipe eTemp2 : p1.getMesEquipes()) {
+				if(eTemp.equals(eTemp2)) {
+					nbEquipeSimilaire++;
+				}
+				if(eTemp.equals(eTemp2) && nbEquipeSimilaire > 1 && !ObjectManager.existEquipeWithName(vETemp, eTemp.getName())) {
+					vETemp.addElement(eTemp);
+				}
+			}
+			
+			for(Equipe eTemp3 : p2.getMesEquipes()) {
+				if(eTemp.equals(eTemp3)) {
+					nbEquipeSimilaire++;
+				}
+				if(eTemp.equals(eTemp3) && nbEquipeSimilaire > 1 && !ObjectManager.existEquipeWithName(vETemp, eTemp.getName())) {
+					vETemp.addElement(eTemp);
+				}
+			}
+		}
+		
+		System.out.println("Test croisementIndividu equipes en doublons : \n" +vETemp.toString());
+		
+		for(Equipe eTemp : vETemp) {
+			boolean firstValue = true;
+			
+			for(int i = 0; i < p1.getMesEquipes().size(); i++) {
+				
+				if(eTemp.equals(p1.getMesEquipes().get(i)) && !firstValue) {
+					p1.getMesEquipes().remove(i);
+					p1.getIdEquipes().remove(i);
+					i--; // Attention, on supprime un element donc il faut retrancher i pour tester tous les elements
+
+				} else if(eTemp.equals(p1.getMesEquipes().get(i))) {
+					firstValue = false;
+				}
+			}
+			
+			for(int i = 0; i < p2.getMesEquipes().size(); i++) {
+				if(eTemp.equals(p2.getMesEquipes().get(i)) && !firstValue) {
+					p2.getMesEquipes().remove(i);
+					p2.getIdEquipes().remove(i);
+					i--; // Attention, on supprime un element donc il faut retrancher i pour tester tous les elements
+
+				} else if(eTemp.equals(p2.getMesEquipes().get(i))) {
+					firstValue = false;
+				}
+			}
+		}
+		
+		System.out.println("Test croisementIndividu apres suppression doublons : \np1 = \n" +p1.toString());
+		System.out.println("Test croisementIndividu apres suppression doublons : \np2 = \n" + p2.toString());
+		
+		//A ce stade nous avons supprime les doublons ! Il nous reste a placer les equipes non utilisees dans les poules adequates.
+		for(int i = 0; i < ObjectManager.getMesEquipes().size(); i++) {
+			boolean isUsed = false;
+			
+			for(Equipe eTemp : p1.getMesEquipes()) {
+				if(ObjectManager.getMesEquipes().get(i).equals(eTemp)) {
+					isUsed = true;
+				}
+			}
+			
+			if(!isUsed) {
+				for(Equipe eTemp : p2.getMesEquipes()) {
+					if(ObjectManager.getMesEquipes().get(i).equals(eTemp)) {
+						isUsed = true;
+					}
+				}
+			}
+		}
+		
+	}
+	
+	public static void addEquipe(Equipe eTemp) {
+		if(eTemp != null) {
+			if(!ObjectManager.existEquipeWithName(eTemp.getName())) {
+				ObjectManager.getMesEquipes().add(eTemp);
+				//System.out.println("Ajout de l'équipe "+eTemp.getName()+" au Manager");
+			} else {
+				//System.out.println("Impossible d'ajouter l'équipe "+eTemp.getName()+" déjà existante");
+			}
+		} else {
+			System.out.println("Impossible d'ajouter une équipe null");
+		}
+	}
+	
+	public static void deleteEquipe(Equipe eTemp) {
+		if(eTemp != null) {
+			for(Equipe e : ObjectManager.getMesEquipes()) {
+				if(e.equals(eTemp)) {
+					ObjectManager.getMesEquipes().remove(e);
+					System.out.println("Equipe correctement supprimée");
+				}
+			}
+		} else {
+			System.out.println("Impossible de supprimer une équipe null");
+		}
+	}
+	
+	public static boolean existEquipeWithName(String name) {
+		boolean res = false;
+		for(Equipe e : ObjectManager.getMesEquipes()) {
+			if(e.getName().equals(name)) {
+				res = true;
+			}
+		}
+		return res;
+	}
+	
+	public static boolean existEquipeWithName(Vector<Equipe> vTemp, String name) {
+		boolean res = false;
+		
+		for(Equipe e : vTemp) {
+			if(e.getName().equals(name)) {
+				res = true;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * @return the mesEquipes
+	 */
+	public static Vector<Equipe> getMesEquipes() {
+		return mesEquipes;
+	}
+
+	/**
+	 * @param mesEquipes the mesEquipes to set
+	 */
+	public static void setMesEquipes(Vector<Equipe> mesEquipes) {
+		ObjectManager.mesEquipes = mesEquipes;
+	}
+
+	public static void addIndividu(Individu iTemp) {
+		if(iTemp != null) {
+			ObjectManager.getMesIndividus().add(iTemp);
+		} else {
+			System.out.println("Impossible d'ajouter un individu null");
+		}
+	}
+	
+	/**
+	 * @return the mesIndividus
+	 */
+	public static Vector<Individu> getMesIndividus() {
+		return mesIndividus;
+	}
+
+	/**
+	 * @param mesIndividus the mesIndividus to set
+	 */
+	public static void setMesIndividus(Vector<Individu> mesIndividus) {
+		ObjectManager.mesIndividus = mesIndividus;
+	}
+}
