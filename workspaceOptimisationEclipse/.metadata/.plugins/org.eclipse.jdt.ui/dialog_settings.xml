@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="D:\Users\Jean-François\Documents\GitHub\Optimisation\workspaceOptimisationEclipse\lib" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="filter_imports;" key="filters_last_used"/>
 	<item value="0" key="org.eclipse.jdt.ui.last.selected.jre.kind2"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="updateQualifiedNames"/>
@@ -85,6 +86,23 @@
 	</section>
 	<section name="BuildPathsPropertyPage">
 		<item value="2" key="pageIndex"/>
+	</section>
+	<section name="JavaSearchPage">
+		<item value="1" key="HISTORY_SIZE"/>
+		<item value="false" key="CASE_SENSITIVE"/>
+		<item value="11" key="INCLUDE_MASK"/>
+		<section name="HISTORY0">
+			<item value="true" key="isCaseSensitive"/>
+			<item value="=PouleConstructor/src&lt;managers{PopulationConstructor.java[PopulationConstructor~SelectionNMeilleursIndividus~I" key="javaElement"/>
+			<item value="0" key="scope"/>
+			<item value="11" key="includeMask"/>
+			<item value="managers.PopulationConstructor.SelectionNMeilleursIndividus(int)" key="pattern"/>
+			<item value="2" key="limitTo"/>
+			<item value="0" key="matchLocations"/>
+			<item value="1" key="searchFor"/>
+			<list key="workingSets">
+			</list>
+		</section>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

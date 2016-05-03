@@ -1,0 +1,23 @@
+#Fichier de configuration du logiciel
+#Attention a ne pas supprimer les cles !!!
+#Cle=valeur
+
+
+#Path des fichiers de donn�es
+pathMatrices=./Matrices.xlsx
+
+#Parametres algorithme genetique
+nbIndividuAleatoireInitial=1000
+nbIndividuMute=10
+nbIndividuCroisement=10
+nbMaxAleatoireMutationParIndividu=6
+nbSelectionMeilleurIndividuGeneration=50
+nbGeneration=10
+nbSelectionMeilleurIndividuFinal=5
+nbEquipeParPoule=9
+
+#Temps ; Distance
+MethodeSelection=Distance
+
+#Mutation ou Croisement
+MethodeChangement=Croisement

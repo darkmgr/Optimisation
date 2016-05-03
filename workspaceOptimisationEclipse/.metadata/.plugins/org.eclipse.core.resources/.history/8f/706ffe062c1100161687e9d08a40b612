@@ -1,0 +1,39 @@
+package object;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Vector;
+
+@SuppressWarnings("serial")
+public class SortableVectorIndividu extends Vector<Individu> implements Comparator<Individu> {
+
+	public SortableVectorIndividu() {
+		
+	}
+	
+	@Override
+	public int compare(Individu i1, Individu i2) {
+		return i1.getRang().compareTo(i2.getRang());
+	}
+
+
+	public void sortIndividu() {
+		Collections.sort(this,this);		
+		//this.display();
+	}
+
+	/*
+	 * Simple m�thode d'affichage pour le test
+	 */
+	public void display(){
+		System.out.println("===============================");
+		System.out.println("Tri des individus :");
+		int i = 0;
+		for (Iterator<Individu> iterator = iterator(); iterator.hasNext();) {
+			System.out.println("Num : " + i + "  " + iterator.next());
+			i++;
+		}
+		System.out.println("===============================");
+	}
+}

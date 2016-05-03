@@ -2,6 +2,8 @@ package object;
 
 import java.util.Vector;
 
+import tools.ConfigReader;
+
 public class Poule {
 
 	private static int max_size;
@@ -29,11 +31,11 @@ public class Poule {
 		return mesEquipes;
 	}	
 
-	private void setDistanceTotale(Double distance) {
+	public void setDistanceTotale(Double distance) {
 		this.distanceTotale = distance;
 	}
 
-	private void setNiveau(double niveau) {
+	public void setNiveau(double niveau) {
 		this.niveau = niveau;
 	}		
 	
@@ -102,7 +104,7 @@ public class Poule {
 		return tempsTotal;
 	}
 
-	private void setTempsTotal(Double tempsTotal) {
+	public void setTempsTotal(Double tempsTotal) {
 		this.tempsTotal = tempsTotal;
 	}
 	
@@ -123,10 +125,14 @@ public class Poule {
 	 */
 	private void calculDistanceTotale() {
 		this.setDistanceTotale(0.0);
-		for(Equipe e : this.getMesEquipes()) {
-			for(Integer i : this.getIdEquipes()) {
-				this.setDistanceTotale(e.getMatriceDistance().get(i-1) + this.getDistanceTotale());
+		if(ConfigReader.getConfig().get("TournoiStandard").equalsIgnoreCase("on")) {
+			
+			for(Equipe e : this.getMesEquipes()) {
+				for(Integer i : this.getIdEquipes()) {
+					this.setDistanceTotale(e.getMatriceDistance().get(i-1) + this.getDistanceTotale());
+				}
 			}
+			
 		}
 	}
 	

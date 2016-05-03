@@ -82,26 +82,32 @@ public class Individu  {
 
 	public void initCalculs() {
 
-		this.poule1.initPouleCalcul();
-		this.poule2.initPouleCalcul();
-
-		/*	@Deprecated
-		 * Ancienne m√©thode de calcul du niveau
-		 * 	
-		 * 
-		 * this.EcartNiveau = Math.abs(this.poule1.getNiveau() - this.poule2.getNiveau());
-
-		 */
-		// TODO : Tri des equipe par niveau pour comparer 1er avec 1er etc
-		this.EcartNiveau = 0.0;
-		for (int i=0; i<Integer.parseInt(ConfigReader.getConfig().get("nbEquipeParPoule")); i++)
-		{
-			this.EcartNiveau += Math.abs(this.poule1.getMesEquipes().get(i).getNiveau() - this.poule2.getMesEquipes().get(i).getNiveau());
-
+		if(ConfigReader.getConfig().get("TournoiStandard").equalsIgnoreCase("on")) {
+			this.poule1.initPouleCalcul();
+			this.poule2.initPouleCalcul();
+	
+			this.EcartNiveau = 0.0;
+			for (int i=0; i<Integer.parseInt(ConfigReader.getConfig().get("nbEquipeParPoule")); i++)
+			{
+				this.EcartNiveau += Math.abs(this.poule1.getMesEquipes().get(i).getNiveau() - this.poule2.getMesEquipes().get(i).getNiveau());
+	
+			}
+			
+			
+			this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
+			this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
+			
+		} else if (ConfigReader.getConfig().get("TournoiComplexe").equalsIgnoreCase("on")) {
+			
 		}
-
-		this.DistanceTotale = this.poule1.getDistanceTotale() + this.poule2.getDistanceTotale();
-		this.TempsTotal = this.poule1.getTempsTotal() + this.poule2.getTempsTotal();
+	}
+	
+	/**
+	 * Initialisation du rang ‡ 1 est domine=false
+	 */
+	public void initRang() {
+		this.setRang(1.0);
+		this.setDomine(false);
 	}
 
 	public void mutation(int nombreMaxDeMutations){
@@ -150,12 +156,6 @@ public class Individu  {
 	public String toString(Boolean AfficherEquipes) {
 		this.initCalculs();
 		String res = "";
-		//res = "Individu [";
-		//res += "Poule 1 : " + poule1.toString() + "\n";
-		//res += "Poule 2 : " + poule2.toString() + "\n";
-		//res += "======================\nTemps total individu : " + this.TempsTotal + "\n";
-		//res += "Distance totale individu : " + this.DistanceTotale +  "\n";
-		//res += "Ecart de niveau de l'individu : " + this.EcartNiveau + "\n======================";
 
 		res = "Distance Totale : " + this.DistanceTotale + "km\n Temps total : " + this.TempsTotal + " heures\n Ecart de niveau : " + this.EcartNiveau;
 
@@ -191,7 +191,102 @@ public class Individu  {
 		EcartNiveau = ecartNiveau;
 	}
 
-
+	public void calculeDistanceTotaleTournoiComplexe() {
+		
+		//On calcul pour la poule 1
+		for(int i = 0; i < this.poule1.getMesEquipes().size(); i++) {
+			int nbIdParcouru = 0;
+			
+			for(Integer q : this.poule1.getIdEquipes()) {
+				
+				// On fait une sous poule fictive, on divise la poule totale en deux
+				if(i < (this.poule1.getMesEquipes().size()/2) && nbIdParcouru < (this.poule1.getMesEquipes().size()/2)) {
+					this.poule1.setDistanceTotale(this.poule1.getMesEquipes().get(i).getMatriceDistance().get(q-1)*2 + this.poule1.getDistanceTotale());
+				
+				} else if(i < (this.poule1.getMesEquipes().size()/2) && nbIdParcouru > (this.poule1.getMesEquipes().size()/2)) {
+					this.poule1.setDistanceTotale(this.poule1.getMesEquipes().get(i).getMatriceDistance().get(q-1) + this.poule1.getDistanceTotale());
+					
+				} else if(i > (this.poule1.getMesEquipes().size()/2) && nbIdParcouru > (this.poule1.getMesEquipes().size()/2)) {
+					this.poule1.setDistanceTotale(this.poule1.getMesEquipes().get(i).getMatriceDistance().get(q-1)*2 + this.poule1.getDistanceTotale());
+					
+				} else if(i > (this.poule1.getMesEquipes().size()/2) && nbIdParcouru < (this.poule1.getMesEquipes().size()/2)) {
+					this.poule1.setDistanceTotale(this.poule1.getMesEquipes().get(i).getMatriceDistance().get(q-1) + this.poule1.getDistanceTotale());
+					
+				}
+				
+				nbIdParcouru++;
+			}
+			
+			//Il reste a ajouter les trois adversaires aleatoires de la poule2
+			if(i < this.poule1.getMesEquipes().size()/2) {
+				for(int j = 0; j < this.poule2.getMesEquipes().size()/2; j++) {
+					this.poule1.setDistanceTotale(
+							//Ici il faut recuperer la valeur de la matrice de distance pour l'equipe i vers l'equipe de la poule 2 random
+							this.poule1.getMesEquipes().get(i).getMatriceDistance().get(this.poule2.getIdEquipes().get(j))
+							+ this.poule1.getDistanceTotale());
+				}
+			} else {
+				for(int j = (this.poule2.getMesEquipes().size()/2)+1; j < this.poule2.getMesEquipes().size(); j++) {
+					System.out.println("Test j = " + j);
+					this.poule1.setDistanceTotale(
+							//Ici il faut recuperer la valeur de la matrice de distance pour l'equipe i vers l'equipe de la poule 2 random
+							this.poule1.getMesEquipes().get(i).getMatriceDistance().get(this.poule2.getIdEquipes().get(j))
+							+ this.poule1.getDistanceTotale());
+				}
+			}
+		}
+		
+		
+		//On calcul pour la poule 2
+		
+		for(int i = 0; i < this.poule2.getMesEquipes().size(); i++) {
+			int nbIdParcouru = 0;
+			
+			for(Integer q : this.poule2.getIdEquipes()) {
+				
+				// On fait une sous poule fictive, on divise la poule totale en deux
+				if(i < (this.poule2.getMesEquipes().size()/2) && nbIdParcouru < (this.poule2.getMesEquipes().size()/2)) {
+					this.poule2.setDistanceTotale(this.poule2.getMesEquipes().get(i).getMatriceDistance().get(q-1)*2 + this.poule2.getDistanceTotale());
+				
+				} else if(i < (this.poule2.getMesEquipes().size()/2) && nbIdParcouru > (this.poule2.getMesEquipes().size()/2)) {
+					this.poule2.setDistanceTotale(this.poule2.getMesEquipes().get(i).getMatriceDistance().get(q-1) + this.poule2.getDistanceTotale());
+					
+				} else if(i > (this.poule2.getMesEquipes().size()/2) && nbIdParcouru > (this.poule2.getMesEquipes().size()/2)) {
+					this.poule2.setDistanceTotale(this.poule2.getMesEquipes().get(i).getMatriceDistance().get(q-1)*2 + this.poule2.getDistanceTotale());
+					
+				} else if(i > (this.poule2.getMesEquipes().size()/2) && nbIdParcouru < (this.poule2.getMesEquipes().size()/2)) {
+					this.poule2.setDistanceTotale(this.poule2.getMesEquipes().get(i).getMatriceDistance().get(q-1) + this.poule2.getDistanceTotale());
+					
+				}
+				
+				nbIdParcouru++;
+			}
+			
+			//Il reste a ajouter les trois adversaires aleatoires de la poule1			
+			if(i < this.poule2.getMesEquipes().size()/2) {
+				for(int j = 0; j < this.poule1.getMesEquipes().size()/2; j++) {
+					this.poule2.setDistanceTotale(
+							//Ici il faut recuperer la valeur de la matrice de distance pour l'equipe i vers l'equipe de la poule 1 random
+							this.poule2.getMesEquipes().get(i).getMatriceDistance().get(this.poule1.getIdEquipes().get(j))
+							+ this.poule2.getDistanceTotale());
+				}
+			} else {
+				for(int j = (this.poule1.getMesEquipes().size()/2)+1; j < this.poule1.getMesEquipes().size(); j++) {
+					System.out.println("Test j = " + j);
+					this.poule2.setDistanceTotale(
+							//Ici il faut recuperer la valeur de la matrice de distance pour l'equipe i vers l'equipe de la poule 1 random
+							this.poule2.getMesEquipes().get(i).getMatriceDistance().get(this.poule1.getIdEquipes().get(j))
+							+ this.poule2.getDistanceTotale());
+				}
+			}
+		}
+		
+		System.out.println("Test de la distance poule1 : " + this.poule1.getDistanceTotale());
+		System.out.println("Test de la distance poule2 : " + this.poule2.getDistanceTotale());
+	}
+	
+	
+	
 	public void afficherTri()
 	{
 		System.out.println(this.getRang() + " DT : " + this.DistanceTotale + " TT : " + this.TempsTotal + " EN : " + this.EcartNiveau);
