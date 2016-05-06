@@ -117,6 +117,6 @@ public class Equipe {
 	
 	@Override
 	public String toString() {
-		return name + " niveau=" + niveau + "\n";
+		return name + " niveau = " + niveau + "\n";
 	}
 }

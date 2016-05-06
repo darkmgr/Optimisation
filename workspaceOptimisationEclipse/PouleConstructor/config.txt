@@ -7,9 +7,9 @@
 pathMatrices=./Matrices.xlsx
 
 #Configuration du tournoi
-TournoiStandard=ON
-TournoiComplexe=OFF
-nbEquipeParPoule=9
+TournoiStandard=OFF
+TournoiComplexe=ON
+nbEquipeParPoule=6
 
 #Parametres algorithme genetique
 nbIndividuAleatoireInitial=1000
@@ -19,6 +19,7 @@ nbMaxAleatoireMutationParIndividu=6
 nbSelectionMeilleurIndividuGeneration=50
 nbGeneration=10
 nbSelectionMeilleurIndividuFinal=5
+pourcentageReussiteSelectionMeilleur=0.5
 
 #Temps ; Distance
 MethodeSelection=Distance

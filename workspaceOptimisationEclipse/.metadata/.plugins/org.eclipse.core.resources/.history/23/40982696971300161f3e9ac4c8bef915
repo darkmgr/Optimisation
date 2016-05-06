@@ -1,0 +1,95 @@
+package tools;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import managers.ObjectManager;
+import object.Equipe;
+import object.Individu;
+
+public class FileSolutionCreator {
+	public FileSolutionCreator() {
+		
+	}
+	
+	public static void savedSolution() {
+		try {
+			String dateCourante = new SimpleDateFormat("dd-MM-yyyy HH'h'mm'm'ss", Locale.FRANCE).format(new Date());
+			new File("./Solutions").mkdirs();
+			
+			File solution = new File("./Solutions/PouleConstructor " + dateCourante + ".txt");
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter(solution));
+			// normalement si le fichier n'existe pas, il est crée à la racine du projet
+			writer.write("Parametres de configuration lors du lancement du logiciel :\r\n\r\n");
+			
+			if(ConfigReader.getConfig().get("TournoiStandard").equalsIgnoreCase("on")) {
+				writer.write("Type de tournoi : Standard\r\n");
+			} else if (ConfigReader.getConfig().get("TournoiComplexe").equalsIgnoreCase("on")) {
+				writer.write("Type de tournoi : Complexe\r\n");
+			}
+			
+			if(ConfigReader.getConfig().get("MethodeChangement").equalsIgnoreCase("mutation")) {
+				writer.write("Methode de modification des individus (Mutation ou Croisement) : Mutation\r\n");
+			} else if (ConfigReader.getConfig().get("MethodeChangement").equalsIgnoreCase("croisement")) {
+				writer.write("Methode de modification des individus (Mutation ou Croisement) : Croisement\r\n");
+			}
+			writer.write("Critere de selection des equipes (Temps ou Distance) : " + ConfigReader.getConfig().get("MethodeSelection") + "\r\n");
+			
+			writer.write("\r\n");
+			writer.write("Parametres globaux :\r\n\r\n");
+
+			writer.write("Nombre d'equipe par poule : " + ConfigReader.getConfig().get("nbEquipeParPoule") + "\r\n");
+			writer.write("Nombre d'individus aleatoires initiaux : " + ConfigReader.getConfig().get("nbIndividuAleatoireInitial") + "\r\n");
+			writer.write("Nombre de generation : " + ConfigReader.getConfig().get("nbGeneration") + "\r\n");
+			
+			if(ConfigReader.getConfig().get("MethodeChangement").equalsIgnoreCase("mutation")) {
+				writer.write("Nombre d'individus mutes par generation : " + ConfigReader.getConfig().get("nbIndividuMute") + "\r\n");
+				writer.write("Nombre maximum aleatoire de mutation par individu : " + ConfigReader.getConfig().get("nbMaxAleatoireMutationParIndividu") + "\r\n");
+			} else if (ConfigReader.getConfig().get("MethodeChangement").equalsIgnoreCase("croisement")) {
+				writer.write("Nombre d'individus croises par generation : " + ConfigReader.getConfig().get("nbIndividuCroisement") + "\r\n");
+			}		
+			
+			writer.write("Nombre des meilleurs individus selectionnes par generation : " + ConfigReader.getConfig().get("nbSelectionMeilleurIndividuGeneration") + "\r\n");
+			writer.write("Pourcentage de reussite d'un individu dominant : " + ConfigReader.getConfig().get("pourcentageReussiteSelectionMeilleur") + "\r\n");
+			writer.write("Nombre d'individus solutions finaux : " + ConfigReader.getConfig().get("nbSelectionMeilleurIndividuFinal") + "\r\n");
+			writer.write("\r\n");
+			
+			writer.write("Liste des individus solutions :\r\n");
+			writer.write("\r\n");
+			
+			for(Individu iTemp : ObjectManager.getMesIndividus()) {
+				String res = "";
+
+				res = "Distance Totale : " + iTemp.getDistanceTotale() + "km\r\n"
+						+ "Temps total : " + iTemp.getTempsTotal() + " heures\r\n"
+								+ "Ecart de niveau : " + iTemp.getEcartNiveau();
+
+				res += "\r\n=================Poule 1 :=================\r\n";
+				res += "====Equipes====\r\n";
+				for(Equipe e : iTemp.getPoule1().getMesEquipes()) {
+					res += e.getName() + " niveau = " + e.getNiveau() + "\r\n";
+				}
+
+				res += "\r\n=================Poule 2 :=================\r\n";
+				res += "====Equipes====\r\n";
+				for(Equipe e : iTemp.getPoule2().getMesEquipes()) {
+					res += e.getName() + " niveau = " + e.getNiveau() + "\r\n";
+				}
+				
+
+				writer.write(""+res);
+			}
+			
+			writer.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

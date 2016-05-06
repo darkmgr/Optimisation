@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import managers.ObjectManager;
 import object.Equipe;
+import object.Poule;
 
 public class ExcelReader {
 	private static Vector<String> pathFiles;
@@ -41,14 +42,16 @@ public class ExcelReader {
 			        	// Première ligne = liste des noms des équipes
 			        	if(nextRow.getRowNum() == 0) {			        		
 			        		Iterator<Cell> cellIterator = nextRow.cellIterator();
-				             
+
 				            while (cellIterator.hasNext()) {
 				                Cell cell = cellIterator.next();
 				                
-				                switch (cell.getCellType()) {
-				                    case Cell.CELL_TYPE_STRING:
-				                        ObjectManager.addEquipe(new Equipe(cell.getStringCellValue(), cell.getColumnIndex()));
-				                        break;
+				                if(cell.getColumnIndex() < (Poule.getMax_size())*2+1) {
+				                	switch (cell.getCellType()) {
+				                    	case Cell.CELL_TYPE_STRING:
+				                    		ObjectManager.addEquipe(new Equipe(cell.getStringCellValue(), cell.getColumnIndex()));
+				                    		break;
+				                	}
 				                }
 				            }
 			        	} else {
@@ -58,14 +61,16 @@ public class ExcelReader {
 				            
 				            while (cellIterator.hasNext()) {
 				                Cell cell = cellIterator.next();
-				                 
-				                switch (cell.getCellType()) {
-				                	case Cell.CELL_TYPE_STRING:
-				                		name_equipe = cell.getStringCellValue();
-				                		break;
-				                    case Cell.CELL_TYPE_NUMERIC:
-				                    	matrice.add(cell.getNumericCellValue());
-				                        break;
+				                
+				                if(cell.getColumnIndex() < (Poule.getMax_size())*2+1) {
+					                switch (cell.getCellType()) {
+					                	case Cell.CELL_TYPE_STRING:
+					                		name_equipe = cell.getStringCellValue();
+					                		break;
+					                    case Cell.CELL_TYPE_NUMERIC:
+					                    	matrice.add(cell.getNumericCellValue());
+					                        break;
+					                }
 				                }
 				            }
 				            
@@ -88,10 +93,12 @@ public class ExcelReader {
 				            while (cellIterator.hasNext()) {
 				                Cell cell = cellIterator.next();
 				                
-				                switch (cell.getCellType()) {
-				                    case Cell.CELL_TYPE_STRING:
-				                        ObjectManager.addEquipe(new Equipe(cell.getStringCellValue(), cell.getColumnIndex()));
-				                        break;
+				                if(cell.getColumnIndex() < (Poule.getMax_size())*2+1) {
+					                switch (cell.getCellType()) {
+					                    case Cell.CELL_TYPE_STRING:
+					                        ObjectManager.addEquipe(new Equipe(cell.getStringCellValue(), cell.getColumnIndex()));
+					                        break;
+					                }
 				                }
 				            }
 			        	} else {
@@ -101,14 +108,16 @@ public class ExcelReader {
 				            
 				            while (cellIterator.hasNext()) {
 				                Cell cell = cellIterator.next();
-				                 
-				                switch (cell.getCellType()) {
-				                	case Cell.CELL_TYPE_STRING:
-				                		name_equipe = cell.getStringCellValue();
-				                		break;
-				                    case Cell.CELL_TYPE_NUMERIC:
-				                    	matrice.add(cell.getNumericCellValue());
-				                        break;
+				                
+				                if(cell.getColumnIndex() < (Poule.getMax_size())*2+1) {
+					                switch (cell.getCellType()) {
+					                	case Cell.CELL_TYPE_STRING:
+					                		name_equipe = cell.getStringCellValue();
+					                		break;
+					                    case Cell.CELL_TYPE_NUMERIC:
+					                    	matrice.add(cell.getNumericCellValue());
+					                        break;
+					                }
 				                }
 				            }
 				            
@@ -130,19 +139,21 @@ public class ExcelReader {
 			            
 			            while (cellIterator.hasNext()) {
 			                Cell cell = cellIterator.next();
-			                 
-			                switch (cell.getCellType()) {
-			                	case Cell.CELL_TYPE_STRING:
-			                		name_equipe = cell.getStringCellValue();
-			                		break;
-			                    case Cell.CELL_TYPE_NUMERIC:
-			                    	niveau = cell.getNumericCellValue();
-			                    	for(Equipe e : ObjectManager.getMesEquipes()) {
-						            	if(e.getName().contains(name_equipe)) {
-						            		e.setNiveau(niveau);
-						            	}
-						            }
-			                        break;
+			                
+			                if(cell.getColumnIndex() < (Poule.getMax_size())*2+1) {
+				                switch (cell.getCellType()) {
+				                	case Cell.CELL_TYPE_STRING:
+				                		name_equipe = cell.getStringCellValue();
+				                		break;
+				                    case Cell.CELL_TYPE_NUMERIC:
+				                    	niveau = cell.getNumericCellValue();
+				                    	for(Equipe e : ObjectManager.getMesEquipes()) {
+							            	if(e.getName().contains(name_equipe)) {
+							            		e.setNiveau(niveau);
+							            	}
+							            }
+				                        break;
+				                }
 			                }
 			            }
 			        }			

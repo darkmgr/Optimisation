@@ -52,7 +52,8 @@ public class Poule {
 	/**
 	 * Initialisation des calculs des Matrices par rapport aux membres des Equipes de la Poule
 	 */
-	public void initPouleCalcul() {
+	public void initPouleCalculWithTournoiStandard() {
+		
 		this.calculDistanceTotale();
 		this.calculTempsTotal();
 		this.calculNiveau();

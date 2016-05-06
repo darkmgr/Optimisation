@@ -8,6 +8,7 @@ import object.Individu;
 import object.Poule;
 import tools.ConfigReader;
 import tools.ExcelReader;
+import tools.FileSolutionCreator;
 
 public class PouleConstructor {
 
@@ -112,6 +113,8 @@ public class PouleConstructor {
 			for(Individu iTemp : ObjectManager.getMesIndividus()) {
 				System.out.println(iTemp.toString(true));
 			}
+			
+			FileSolutionCreator.savedSolution();
 		}
 	}
 

@@ -1,0 +1,30 @@
+package tools;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+public class FileReader {
+	public FileReader() {
+		
+	}
+	
+	public void savedSolution() {
+		try {
+			String dateCourante = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.FRANCE).format(new Date());
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("PouleConstructor " + dateCourante)));
+			// normalement si le fichier n'existe pas, il est crée à la racine du projet
+			writer.write("");
+			 
+			writer.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

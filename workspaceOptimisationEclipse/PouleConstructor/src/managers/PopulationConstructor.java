@@ -253,10 +253,11 @@ public class PopulationConstructor {
 				i++;
 			}
 
-			p1.initPouleCalcul();
-			p2.initPouleCalcul();
+			Individu iTemp = new Individu(p1, p2);
+			
+			iTemp.initCalculs();
 
-			ObjectManager.addIndividu(new Individu(p1, p2));	
+			ObjectManager.addIndividu(iTemp);	
 			nbIndividuAleatoire--;
 		}
 	}
@@ -289,18 +290,25 @@ public class PopulationConstructor {
 							{
 								//System.out.println("Individu i - DT: "+ i.getDistanceTotale()+", EN: "
 								//		+ i.getEcartNiveau() +" domine par individu j - DT: " + j.getDistanceTotale() + ", EN: " + j.getEcartNiveau());
-								i.setDomine(true);
-								fin = false;
-								break;
+								
+								double d = Math.random();
+								if (d < Double.parseDouble(ConfigReader.getConfig().get("pourcentageReussiteSelectionMeilleur"))) {
+									i.setDomine(true);
+									fin = false;
+									break;
+								}
 							}
 						}
 						else if (ConfigReader.getConfig().get("MethodeSelection").toLowerCase().equals("temps"))
 						{
 							if (i.getTempsTotal() > j.getTempsTotal() && i.getEcartNiveau() > j.getEcartNiveau() && i.getRang().equals(j.getRang()) && !j.getDomine())
 							{
-								i.setDomine(true);
-								fin = false;
-								break;
+								double d = Math.random();
+								if (d < Double.parseDouble(ConfigReader.getConfig().get("pourcentageReussiteSelectionMeilleur"))) {
+									i.setDomine(true);
+									fin = false;
+									break;
+								}
 							}					
 						}
 						else
