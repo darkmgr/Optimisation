@@ -1,0 +1,28 @@
+#Fichier de configuration du logiciel
+#Attention a ne pas supprimer les cles !!!
+#Cle=valeur
+
+
+#Path des fichiers de donnees
+pathMatrices=./Matrices.xlsx
+
+#Configuration du tournoi
+TournoiStandard=OFF
+TournoiComplexe=ON
+nbEquipeParPoule=6
+
+#Parametres algorithme genetique
+nbIndividuAleatoireInitial=1000
+nbIndividuMute=10
+nbIndividuCroisement=10
+nbMaxAleatoireMutationParIndividu=6
+nbSelectionMeilleurIndividuGeneration=50
+nbGeneration=10
+nbSelectionMeilleurIndividuFinal=5
+pourcentageReussiteSelectionMeilleur=0.5
+
+#Temps ; Distance
+MethodeSelection=Distance
+
+#Mutation ou Croisement
+MethodeChangement=Croisement
